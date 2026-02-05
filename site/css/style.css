@@ -176,8 +176,16 @@ body {
 
 .section-inner {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
+}
+
+/* Centered section variant */
+.section-inner--centered {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .section-label {
@@ -187,21 +195,27 @@ body {
     margin-bottom: var(--space-xl);
 }
 
+.section-inner--centered .section-label {
+    justify-content: center;
+}
+
 .label-number {
     font-family: var(--font-en);
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     font-weight: 400;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.3em;
     color: var(--color-text-light);
+    opacity: 0.6;
 }
 
 .label-text {
     font-family: var(--font-en);
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     font-weight: 400;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--color-text-light);
+    opacity: 0.6;
 }
 
 .section-heading {
@@ -210,9 +224,9 @@ body {
 
 .heading-en {
     font-family: var(--font-en);
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
     font-weight: 300;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     color: var(--color-text);
 }
 
@@ -298,29 +312,36 @@ body {
 /* --- Philosophy Section --- */
 .section--philosophy {
     background: var(--color-off-white);
+    min-height: 100vh;
 }
 
 .philosophy-content {
-    max-width: 800px;
+    max-width: 700px;
+    text-align: center;
 }
 
 .philosophy-statement {
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-xxl);
 }
 
 .statement-main {
     font-family: var(--font-jp);
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-weight: 400;
-    line-height: 2;
-    letter-spacing: 0.1em;
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    font-weight: 300;
+    line-height: 2.2;
+    letter-spacing: 0.15em;
     color: var(--color-text);
 }
 
+.philosophy-description {
+    max-width: 540px;
+    margin: 0 auto;
+}
+
 .philosophy-description p {
-    font-size: 1rem;
-    line-height: 2.5;
-    letter-spacing: 0.05em;
+    font-size: 0.9375rem;
+    line-height: 2.8;
+    letter-spacing: 0.08em;
     color: var(--color-text-light);
 }
 
@@ -329,29 +350,44 @@ body {
     background: var(--color-white);
 }
 
+.section--service .section-inner {
+    text-align: center;
+}
+
+.section--service .section-label {
+    justify-content: center;
+}
+
 .service-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--space-xl);
-    margin-top: var(--space-lg);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+    text-align: left;
 }
 
 .service-item {
-    padding: var(--space-lg) 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: var(--space-xl) var(--space-md);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    transition: background var(--duration-normal) var(--ease-out-expo);
+}
+
+.service-item:hover {
+    background: var(--color-off-white);
 }
 
 .service-number {
     font-family: var(--font-en);
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: var(--color-text-light);
-    margin-bottom: var(--space-md);
+    font-size: 0.6875rem;
+    letter-spacing: 0.3em;
+    color: var(--color-purple);
+    margin-bottom: var(--space-lg);
+    opacity: 0.7;
 }
 
 .service-title {
     font-family: var(--font-en);
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 400;
     letter-spacing: 0.05em;
     margin-bottom: var(--space-md);
@@ -359,9 +395,10 @@ body {
 }
 
 .service-desc {
-    font-size: 0.9375rem;
-    line-height: 2;
+    font-size: 0.875rem;
+    line-height: 2.2;
     color: var(--color-text-light);
+    letter-spacing: 0.02em;
 }
 
 /* --- Works Section --- */
@@ -369,83 +406,88 @@ body {
     background: var(--color-off-white);
 }
 
+.section--works .section-inner {
+    text-align: center;
+}
+
+.section--works .section-label {
+    justify-content: center;
+}
+
 .works-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: var(--space-lg);
-    margin-top: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: var(--space-xl);
+    text-align: left;
 }
 
 .work-card {
     text-decoration: none;
     display: block;
     position: relative;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.work-card:last-child {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .work-card-inner {
     position: relative;
-    padding: var(--space-xl) var(--space-lg);
-    background: var(--color-white);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    transition: transform var(--duration-normal) var(--ease-out-expo),
-                box-shadow var(--duration-normal) var(--ease-out-expo);
+    padding: var(--space-xl) var(--space-md);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-xl);
+    background: transparent;
+    transition: background var(--duration-normal) var(--ease-out-expo),
+                padding var(--duration-normal) var(--ease-out-expo);
 }
 
 .work-card:hover .work-card-inner {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    background: var(--color-white);
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
 }
 
 .work-card-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--color-accent);
-    opacity: 0;
-    transition: opacity var(--duration-normal) var(--ease-out-expo);
-}
-
-.work-card:hover .work-card-bg {
-    opacity: 0.03;
+    display: none;
 }
 
 .work-card-content {
     position: relative;
     z-index: 1;
+    display: contents;
 }
 
 .work-card .work-category {
     font-family: var(--font-en);
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
+    font-size: 0.6875rem;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--color-purple);
-    margin-bottom: var(--space-md);
-    display: block;
+    opacity: 0.8;
+    min-width: 120px;
 }
 
 .work-card .work-title {
     font-family: var(--font-en);
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    margin-bottom: var(--space-sm);
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 300;
+    letter-spacing: 0.03em;
     color: var(--color-text);
-    transition: color var(--duration-fast) var(--ease-out-quart);
+    transition: color var(--duration-fast) var(--ease-out-quart),
+                letter-spacing var(--duration-normal) var(--ease-out-expo);
 }
 
 .work-card:hover .work-title {
     color: var(--color-purple);
+    letter-spacing: 0.06em;
 }
 
 .work-summary {
-    font-size: 0.9375rem;
-    line-height: 1.8;
-    color: var(--color-text-light);
-    margin-bottom: var(--space-lg);
+    display: none;
 }
 
 .work-link {
@@ -453,17 +495,25 @@ body {
     align-items: center;
     gap: var(--space-sm);
     font-family: var(--font-en);
-    font-size: 0.875rem;
-    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
     color: var(--color-text-light);
-    transition: color var(--duration-fast) var(--ease-out-quart);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity var(--duration-normal) var(--ease-out-expo),
+                transform var(--duration-normal) var(--ease-out-expo),
+                color var(--duration-fast) var(--ease-out-quart);
 }
 
 .work-link svg {
+    width: 16px;
+    height: 16px;
     transition: transform var(--duration-fast) var(--ease-out-quart);
 }
 
 .work-card:hover .work-link {
+    opacity: 1;
+    transform: translateX(0);
     color: var(--color-purple);
 }
 
@@ -813,11 +863,23 @@ body {
     background: var(--color-white);
 }
 
+.section--profile .section-inner {
+    text-align: center;
+}
+
+.section--profile .section-label {
+    justify-content: center;
+}
+
 .profile-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--space-xl);
-    margin-top: var(--space-lg);
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xxl);
+    margin-top: var(--space-xl);
+    text-align: left;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .profile-list {
@@ -828,62 +890,77 @@ body {
 
 .profile-row {
     display: grid;
-    grid-template-columns: 140px 1fr;
+    grid-template-columns: 120px 1fr;
     gap: var(--space-md);
     padding-bottom: var(--space-md);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .profile-row dt {
     font-family: var(--font-en);
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 400;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     color: var(--color-text-light);
+    opacity: 0.7;
 }
 
 .profile-row dd {
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     color: var(--color-text);
+    letter-spacing: 0.02em;
 }
 
 .profile-subtitle {
     font-family: var(--font-en);
-    font-size: 1rem;
+    font-size: 0.75rem;
     font-weight: 400;
-    letter-spacing: 0.1em;
-    margin-bottom: var(--space-md);
-    color: var(--color-text);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-lg);
+    color: var(--color-text-light);
+    opacity: 0.7;
 }
 
 .background-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: var(--space-md);
 }
 
 .background-list li {
-    font-size: 0.9375rem;
-    color: var(--color-text-light);
-    padding-left: var(--space-md);
+    font-size: 0.875rem;
+    color: var(--color-text);
+    padding-left: var(--space-lg);
     position: relative;
+    letter-spacing: 0.02em;
+    line-height: 1.8;
 }
 
 .background-list li::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 0.75em;
-    width: 4px;
+    top: 0.7em;
+    width: 16px;
     height: 1px;
     background: var(--color-purple);
+    opacity: 0.5;
 }
 
 /* --- Contact Section --- */
 .section--contact {
     background: var(--color-off-white);
-    min-height: 70vh;
+    min-height: 80vh;
+}
+
+.section--contact .section-inner {
+    text-align: center;
+}
+
+.section--contact .section-label {
+    justify-content: center;
 }
 
 .contact-content {
@@ -893,40 +970,46 @@ body {
 }
 
 .contact-lead {
-    font-size: 1rem;
+    font-size: 0.9375rem;
     color: var(--color-text-light);
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    letter-spacing: 0.05em;
+    line-height: 2;
 }
 
 .contact-email {
     font-family: var(--font-en);
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
     font-weight: 400;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     text-decoration: none;
     color: var(--color-text);
     position: relative;
     display: inline-block;
-    padding-bottom: var(--space-xs);
-    transition: color var(--duration-fast) var(--ease-out-quart);
+    padding: var(--space-sm) 0;
+    transition: color var(--duration-fast) var(--ease-out-quart),
+                letter-spacing var(--duration-normal) var(--ease-out-expo);
 }
 
 .contact-email::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    width: 0;
     height: 1px;
-    background: var(--color-accent);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform var(--duration-normal) var(--ease-out-expo);
+    background: var(--color-purple);
+    transition: width var(--duration-normal) var(--ease-out-expo),
+                left var(--duration-normal) var(--ease-out-expo);
+}
+
+.contact-email:hover {
+    letter-spacing: 0.2em;
 }
 
 .contact-email:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
+    width: 100%;
+    left: 0;
 }
 
 /* --- Footer --- */
@@ -1024,22 +1107,47 @@ body {
         padding: var(--space-xl) var(--space-md);
     }
 
+    /* Service grid responsive */
+    .service-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .service-item {
+        padding: var(--space-lg) 0;
+    }
+
+    /* Works responsive */
+    .work-card-inner {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+        padding: var(--space-lg) var(--space-sm);
+    }
+
+    .work-card:hover .work-card-inner {
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
+    }
+
+    .work-card .work-category {
+        min-width: auto;
+    }
+
+    .work-link {
+        opacity: 1;
+        transform: translateX(0);
+        margin-top: var(--space-sm);
+    }
+
+    /* Profile responsive */
+    .profile-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+
     .profile-row {
         grid-template-columns: 1fr;
         gap: var(--space-xs);
-    }
-
-    .service-grid {
-        grid-template-columns: 1fr;
-    }
-
-    /* Works grid responsive */
-    .works-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .work-card-inner {
-        padding: var(--space-lg) var(--space-md);
     }
 
     /* Work detail responsive */
