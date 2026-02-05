@@ -13,19 +13,20 @@
 }
 
 :root {
-    /* Colors */
+    /* Brand Colors (from official logo) */
     --color-white: #ffffff;
     --color-off-white: #fafafa;
     --color-bg: #fcfcfc;
     --color-text: #1a1a1a;
     --color-text-light: #666666;
-    --color-purple: #5C00A4;
-    --color-magenta: #C4007B;
+    --color-purple: #5C00A4;     /* C:64% M:100% Y:0% K:0% */
+    --color-magenta: #AF0066;    /* C:13% M:100% Y:0% K:23% */
     --color-accent: linear-gradient(135deg, var(--color-purple), var(--color-magenta));
 
-    /* Typography */
+    /* Typography (from brand guidelines) */
     --font-en: 'Cormorant Garamond', serif;
-    --font-en-display: 'Tangerine', cursive;
+    --font-en-display: 'Tangerine', cursive;  /* For decorative initials */
+    --font-en-body: 'Ovo', serif;             /* For body text */
     --font-jp: 'Noto Serif JP', serif;
 
     /* Spacing */
@@ -245,23 +246,22 @@ body {
 }
 
 .logo-symbol {
-    width: 160px;
-    height: 160px;
-    animation: rotate 60s linear infinite;
+    width: 140px;
+    height: 140px;
+    transition: transform var(--duration-slow) var(--ease-out-expo);
 }
 
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+.hero-symbol:hover .logo-symbol {
+    transform: scale(1.05);
 }
 
 .hero-title {
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-lg);
 }
 
 .hero-title-main {
     font-family: var(--font-en);
-    font-size: clamp(3rem, 10vw, 6rem);
+    font-size: clamp(3rem, 10vw, 5rem);
     font-weight: 300;
     letter-spacing: 0.3em;
     background: var(--color-accent);
@@ -270,12 +270,30 @@ body {
     background-clip: text;
 }
 
+/* Brand Typography for Tagline */
 .hero-tagline {
-    font-family: var(--font-en);
-    font-size: clamp(0.875rem, 2vw, 1.125rem);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+.tagline-word {
+    font-family: var(--font-en-body);
+    font-size: clamp(1rem, 2.5vw, 1.375rem);
     font-weight: 400;
-    letter-spacing: 0.3em;
-    color: var(--color-text-light);
+    letter-spacing: 0.08em;
+    color: var(--color-purple);
+}
+
+.tagline-initial {
+    font-family: var(--font-en-display);
+    font-size: 1.6em;
+    font-weight: 700;
+    display: inline-block;
+    transform: rotate(-8deg);
+    transform-origin: bottom left;
+    margin-right: -0.05em;
 }
 
 .scroll-indicator {

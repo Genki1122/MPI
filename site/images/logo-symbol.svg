@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <clipPath id="circleClip">
+      <circle cx="100" cy="100" r="96"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#circleClip)">
+    <!-- Quadrant backgrounds -->
+    <!-- Top-left: Purple -->
+    <rect x="0" y="0" width="100" height="100" fill="#5C00A4"/>
+    <!-- Top-right: Magenta -->
+    <rect x="100" y="0" width="100" height="100" fill="#AF0066"/>
+    <!-- Bottom-left: Magenta -->
+    <rect x="0" y="100" width="100" height="100" fill="#AF0066"/>
+    <!-- Bottom-right: Purple -->
+    <rect x="100" y="100" width="100" height="100" fill="#5C00A4"/>
+
+    <!-- Letter P (white) -->
+    <g fill="#ffffff">
+      <!-- P stem -->
+      <rect x="28" y="45" width="20" height="110"/>
+      <!-- P bowl -->
+      <path d="M28,45 L65,45 C90,45 90,95 65,95 L48,95 L48,75 L60,75 C70,75 70,65 60,65 L48,65 L48,45 Z"/>
+    </g>
+
+    <!-- Letter I (white) -->
+    <g fill="#ffffff">
+      <!-- I stem -->
+      <rect x="120" y="55" width="20" height="90"/>
+      <!-- I top bar -->
+      <rect x="108" y="45" width="44" height="15"/>
+      <!-- I bottom bar -->
+      <rect x="108" y="140" width="44" height="15"/>
+    </g>
+  </g>
+</svg>
