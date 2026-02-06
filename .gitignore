@@ -14,3 +14,10 @@ Thumbs.db
 # Temporary
 *.log
 *.tmp
+
+# Large files
+*.pdf
+
+# Original large images (use compressed versions instead)
+site/images/HINT MINT.png
+site/images/浮世絵.png
