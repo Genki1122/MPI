@@ -29,35 +29,51 @@
     --font-en-body: 'Ovo', serif;             /* For body text */
     --font-jp: 'Noto Serif JP', serif;
 
-    /* Spacing */
-    --space-xs: 0.5rem;
-    --space-sm: 1rem;
-    --space-md: 2rem;
-    --space-lg: 4rem;
-    --space-xl: 8rem;
-    --space-xxl: 12rem;
+    /* Ma (間) - Designed Whitespace */
+    --space-xs: 0.5rem;    /* 8px - breath pause */
+    --space-sm: 1rem;      /* 16px - word spacing */
+    --space-md: 2.5rem;    /* 40px - phrase break */
+    --space-lg: 5rem;      /* 80px - paragraph rest */
+    --space-xl: 10rem;     /* 160px - section contemplation */
+    --space-xxl: 16rem;    /* 256px - chapter transition */
 
-    /* Transitions */
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-    --duration-fast: 0.3s;
-    --duration-normal: 0.6s;
-    --duration-slow: 1s;
+    /* Easing - 呼吸のような挙動 */
+    --ease-breath: cubic-bezier(0.4, 0, 0.2, 1);         /* Natural breathing rhythm */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);      /* Decisive exit */
+    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);    /* Silk-like deceleration */
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);     /* Gentle landing */
+    --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1); /* Contemplative transition */
+
+    /* Duration - 言葉を咀嚼する時間 */
+    --duration-instant: 0.15s;  /* Immediate response */
+    --duration-fast: 0.4s;      /* Quick acknowledgment */
+    --duration-normal: 0.8s;    /* Thoughtful transition */
+    --duration-slow: 1.2s;      /* Deep consideration */
+    --duration-glacial: 2s;     /* Meditative pace */
 }
 
 html {
     font-size: 16px;
     scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
 }
 
 body {
     font-family: var(--font-jp);
     font-weight: 300;
-    line-height: 1.8;
+    line-height: 2;
+    letter-spacing: 0.04em;
     color: var(--color-text);
     background-color: var(--color-bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "palt" 1;
+    opacity: 0;
+    transition: opacity var(--duration-slow) var(--ease-breath);
+}
+
+body.is-loaded {
+    opacity: 1;
 }
 
 /* --- Navigation --- */
@@ -72,14 +88,17 @@ body {
     justify-content: space-between;
     align-items: center;
     background: transparent;
-    transition: background var(--duration-fast) var(--ease-out-quart),
-                padding var(--duration-fast) var(--ease-out-quart);
+    transition: background var(--duration-normal) var(--ease-breath),
+                padding var(--duration-normal) var(--ease-breath),
+                box-shadow var(--duration-normal) var(--ease-breath);
 }
 
 .nav.is-scrolled {
-    background: rgba(252, 252, 252, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(252, 252, 252, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     padding: var(--space-sm) var(--space-lg);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
 }
 
 .nav-logo a {
@@ -137,24 +156,24 @@ body {
 
 .nav-menu a {
     font-family: var(--font-en);
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 400;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     text-decoration: none;
     color: var(--color-text-light);
     position: relative;
-    transition: color var(--duration-fast) var(--ease-out-quart);
+    transition: color var(--duration-fast) var(--ease-breath);
 }
 
 .nav-menu a::after {
     content: '';
     position: absolute;
-    bottom: -4px;
+    bottom: -6px;
     left: 0;
     width: 0;
     height: 1px;
-    background: var(--color-accent);
-    transition: width var(--duration-fast) var(--ease-out-quart);
+    background: var(--color-purple);
+    transition: width var(--duration-normal) var(--ease-out-quint);
 }
 
 .nav-menu a:hover {
@@ -162,6 +181,14 @@ body {
 }
 
 .nav-menu a:hover::after {
+    width: 100%;
+}
+
+.nav-menu a.is-active {
+    color: var(--color-text);
+}
+
+.nav-menu a.is-active::after {
     width: 100%;
 }
 
@@ -282,14 +309,9 @@ body {
 
 .scroll-line {
     width: 1px;
-    height: 60px;
-    background: linear-gradient(to bottom, var(--color-text-light), transparent);
-    animation: scrollPulse 2s ease-in-out infinite;
-}
-
-@keyframes scrollPulse {
-    0%, 100% { opacity: 1; transform: scaleY(1); }
-    50% { opacity: 0.5; transform: scaleY(0.8); }
+    height: 48px;
+    background: linear-gradient(to bottom, var(--color-text-light) 0%, transparent 100%);
+    animation: scrollBreath var(--duration-glacial) var(--ease-breath) infinite;
 }
 
 /* --- Philosophy Section --- */
@@ -350,13 +372,15 @@ body {
 }
 
 .service-item {
-    padding: var(--space-xl) var(--space-md);
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    transition: background var(--duration-normal) var(--ease-out-expo);
+    padding: var(--space-lg) var(--space-md);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    transition: background var(--duration-normal) var(--ease-breath),
+                transform var(--duration-normal) var(--ease-out-quint);
 }
 
 .service-item:hover {
     background: var(--color-off-white);
+    transform: translateX(8px);
 }
 
 .service-number {
@@ -515,14 +539,14 @@ body {
     transform: translateX(4px);
 }
 
-/* Image card styles */
+/* Image card styles - 静謐な佇まい */
 .work-card--image {
     border: none;
     background: var(--color-white);
     border-radius: 2px;
     overflow: hidden;
-    transition: transform var(--duration-normal) var(--ease-out-expo),
-                box-shadow var(--duration-normal) var(--ease-out-expo);
+    transition: transform var(--duration-normal) var(--ease-out-quint),
+                box-shadow var(--duration-slow) var(--ease-breath);
 }
 
 .work-card--image:last-child {
@@ -530,8 +554,9 @@ body {
 }
 
 .work-card--image:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 24px 48px rgba(92, 0, 164, 0.12);
+    transform: translateY(-6px);
+    box-shadow: 0 32px 64px rgba(92, 0, 164, 0.08),
+                0 16px 32px rgba(0, 0, 0, 0.04);
 }
 
 .work-card-image {
@@ -560,11 +585,11 @@ body {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    transition: transform var(--duration-normal) var(--ease-out-expo);
+    transition: transform var(--duration-slow) var(--ease-out-quint);
 }
 
 .work-card--image:hover .work-card-image img {
-    transform: scale(1.08);
+    transform: scale(1.04);
 }
 
 .work-card-image--placeholder {
@@ -1326,14 +1351,14 @@ body {
     font-family: var(--font-en);
     font-size: clamp(1.125rem, 2.5vw, 1.5rem);
     font-weight: 400;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     text-decoration: none;
     color: var(--color-text);
     position: relative;
     display: inline-block;
     padding: var(--space-sm) 0;
-    transition: color var(--duration-fast) var(--ease-out-quart),
-                letter-spacing var(--duration-normal) var(--ease-out-expo);
+    transition: color var(--duration-fast) var(--ease-breath),
+                letter-spacing var(--duration-slow) var(--ease-out-quint);
 }
 
 .contact-email::after {
@@ -1344,12 +1369,13 @@ body {
     width: 0;
     height: 1px;
     background: var(--color-purple);
-    transition: width var(--duration-normal) var(--ease-out-expo),
-                left var(--duration-normal) var(--ease-out-expo);
+    transition: width var(--duration-slow) var(--ease-out-quint),
+                left var(--duration-slow) var(--ease-out-quint);
 }
 
 .contact-email:hover {
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
+    color: var(--color-purple);
 }
 
 .contact-email:hover::after {
@@ -1377,12 +1403,13 @@ body {
     color: var(--color-text-light);
 }
 
-/* --- Animations --- */
+/* --- Animations - 静謐かつ動的 --- */
 .fade-in {
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity var(--duration-slow) var(--ease-out-expo),
-                transform var(--duration-slow) var(--ease-out-expo);
+    transform: translateY(30px);
+    transition: opacity var(--duration-slow) var(--ease-breath),
+                transform var(--duration-slow) var(--ease-out-quint);
+    will-change: opacity, transform;
 }
 
 .fade-in.is-visible {
@@ -1390,16 +1417,39 @@ body {
     transform: translateY(0);
 }
 
+/* Staggered delays - 呼吸のリズム */
 .fade-in.delay-1 {
-    transition-delay: 0.15s;
+    transition-delay: 0.2s;
 }
 
 .fade-in.delay-2 {
-    transition-delay: 0.3s;
+    transition-delay: 0.4s;
 }
 
 .fade-in.delay-3 {
-    transition-delay: 0.45s;
+    transition-delay: 0.6s;
+}
+
+.fade-in.delay-4 {
+    transition-delay: 0.8s;
+}
+
+/* Subtle scale animation for emphasis */
+@keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.01); }
+}
+
+/* Refined scroll pulse */
+@keyframes scrollBreath {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scaleY(1) translateY(0);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scaleY(0.85) translateY(5px);
+    }
 }
 
 /* --- Responsive --- */

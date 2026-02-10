@@ -1,23 +1,31 @@
 /**
  * MPI Corporate Site
- * Main JavaScript
+ * Main JavaScript - 静謐かつ動的
  */
 
 (function() {
     'use strict';
 
     // ===================================
+    // Easing Functions - 呼吸のような挙動
+    // ===================================
+    const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5);
+    const easeBreath = (t) => t < 0.5
+        ? 4 * t * t * t
+        : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    // ===================================
     // Scroll Animation Observer
     // ===================================
     const observerOptions = {
         root: null,
-        rootMargin: '0px 0px -10% 0px',
-        threshold: 0.1
+        rootMargin: '0px 0px -15% 0px',
+        threshold: [0, 0.1, 0.2]
     };
 
     const fadeInObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.1) {
                 entry.target.classList.add('is-visible');
             }
         });
@@ -40,10 +48,10 @@
     function handleScroll() {
         const currentScrollY = window.scrollY;
 
-        // Add scrolled class
-        if (currentScrollY > 100) {
+        // Add scrolled class with hysteresis
+        if (currentScrollY > 120) {
             nav.classList.add('is-scrolled');
-        } else {
+        } else if (currentScrollY < 80) {
             nav.classList.remove('is-scrolled');
         }
 
@@ -60,26 +68,28 @@
             });
             ticking = true;
         }
-    });
+    }, { passive: true });
 
     // Mobile menu toggle
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('is-active');
-        navMenu.classList.toggle('is-open');
-        document.body.style.overflow = navMenu.classList.contains('is-open') ? 'hidden' : '';
-    });
-
-    // Close menu on link click
-    navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('is-active');
-            navMenu.classList.remove('is-open');
-            document.body.style.overflow = '';
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('is-active');
+            navMenu.classList.toggle('is-open');
+            document.body.style.overflow = navMenu.classList.contains('is-open') ? 'hidden' : '';
         });
-    });
+
+        // Close menu on link click
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('is-active');
+                navMenu.classList.remove('is-open');
+                document.body.style.overflow = '';
+            });
+        });
+    }
 
     // ===================================
-    // Smooth Scroll
+    // Smooth Scroll - 滑らかな遷移
     // ===================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -88,32 +98,67 @@
             const target = document.querySelector(targetId);
 
             if (target) {
-                const headerOffset = 80;
+                const headerOffset = 100;
                 const elementPosition = target.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
+                // Custom smooth scroll with easing
+                smoothScrollTo(offsetPosition, 1200);
             }
         });
     });
 
-    // ===================================
-    // Parallax Effect (subtle)
-    // ===================================
-    const heroSymbol = document.querySelector('.hero-symbol');
+    // Custom smooth scroll function
+    function smoothScrollTo(targetY, duration) {
+        const startY = window.scrollY;
+        const difference = targetY - startY;
+        const startTime = performance.now();
 
-    if (heroSymbol) {
-        window.addEventListener('scroll', () => {
+        function step(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = easeOutQuint(progress);
+
+            window.scrollTo(0, startY + difference * easedProgress);
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            }
+        }
+
+        requestAnimationFrame(step);
+    }
+
+    // ===================================
+    // Hero Image Parallax
+    // ===================================
+    const heroImage = document.querySelector('.hero-image');
+
+    if (heroImage) {
+        let rafId = null;
+
+        function updateHeroParallax() {
             const scrollY = window.scrollY;
-            const opacity = Math.max(0, 1 - scrollY / 500);
-            const scale = Math.max(0.8, 1 - scrollY / 2000);
+            const viewportHeight = window.innerHeight;
 
-            heroSymbol.style.opacity = opacity;
-            heroSymbol.style.transform = `scale(${scale})`;
-        });
+            if (scrollY < viewportHeight) {
+                const progress = scrollY / viewportHeight;
+                const opacity = Math.max(0, 1 - progress * 1.2);
+                const scale = 1 - progress * 0.05;
+                const translateY = scrollY * 0.15;
+
+                heroImage.style.opacity = opacity;
+                heroImage.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+            }
+
+            rafId = null;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!rafId) {
+                rafId = requestAnimationFrame(updateHeroParallax);
+            }
+        }, { passive: true });
     }
 
     // ===================================
@@ -135,7 +180,7 @@
             }
         });
     }, {
-        rootMargin: '-50% 0px -50% 0px'
+        rootMargin: '-45% 0px -45% 0px'
     });
 
     sections.forEach(section => {
@@ -143,47 +188,52 @@
     });
 
     // ===================================
-    // Page Load Animation
+    // Page Load Animation - 静謐な登場
     // ===================================
     window.addEventListener('load', () => {
         document.body.classList.add('is-loaded');
 
-        // Trigger initial fade-in for hero section
-        setTimeout(() => {
-            document.querySelectorAll('.section--hero .fade-in').forEach(el => {
+        // Staggered reveal for hero section
+        const heroElements = document.querySelectorAll('.section--hero .fade-in');
+        heroElements.forEach((el, index) => {
+            setTimeout(() => {
                 el.classList.add('is-visible');
-            });
-        }, 100);
+            }, 200 + (index * 200));
+        });
     });
 
     // ===================================
-    // Cursor Effect (optional enhancement)
+    // Cursor Effect - 知的な追従
     // ===================================
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
 
     // Only add cursor on desktop
     if (window.matchMedia('(min-width: 769px)').matches && !('ontouchstart' in window)) {
-        // Cursor styles (add to DOM)
         const style = document.createElement('style');
         style.textContent = `
             .custom-cursor {
                 position: fixed;
-                width: 8px;
-                height: 8px;
-                background: linear-gradient(135deg, #5C00A4, #C4007B);
+                width: 6px;
+                height: 6px;
+                background: var(--color-purple, #5C00A4);
                 border-radius: 50%;
                 pointer-events: none;
                 z-index: 9999;
                 opacity: 0;
-                transition: opacity 0.3s ease, transform 0.15s ease;
+                transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                            transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                            width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                            height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
                 mix-blend-mode: difference;
             }
             .custom-cursor.is-visible {
-                opacity: 1;
+                opacity: 0.8;
             }
             .custom-cursor.is-hover {
-                transform: scale(4);
+                width: 24px;
+                height: 24px;
+                opacity: 0.6;
             }
             body { cursor: none; }
             a, button { cursor: none; }
@@ -195,32 +245,82 @@
         let cursorY = 0;
         let currentX = 0;
         let currentY = 0;
+        const smoothing = 0.12;
 
         document.addEventListener('mousemove', (e) => {
             cursorX = e.clientX;
             cursorY = e.clientY;
             cursor.classList.add('is-visible');
-        });
+        }, { passive: true });
 
         document.addEventListener('mouseleave', () => {
             cursor.classList.remove('is-visible');
         });
 
         // Hover effect on interactive elements
-        document.querySelectorAll('a, button').forEach(el => {
+        document.querySelectorAll('a, button, .work-card').forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
         });
 
-        // Smooth cursor animation
+        // Smooth cursor animation with improved easing
         function animateCursor() {
-            currentX += (cursorX - currentX) * 0.15;
-            currentY += (cursorY - currentY) * 0.15;
-            cursor.style.left = currentX - 4 + 'px';
-            cursor.style.top = currentY - 4 + 'px';
+            const dx = cursorX - currentX;
+            const dy = cursorY - currentY;
+
+            currentX += dx * smoothing;
+            currentY += dy * smoothing;
+
+            cursor.style.left = currentX - 3 + 'px';
+            cursor.style.top = currentY - 3 + 'px';
+
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
     }
+
+    // ===================================
+    // Scroll Progress Indicator (optional)
+    // ===================================
+    const scrollProgress = document.createElement('div');
+    scrollProgress.className = 'scroll-progress';
+
+    const progressStyle = document.createElement('style');
+    progressStyle.textContent = `
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: linear-gradient(90deg, var(--color-purple, #5C00A4), var(--color-magenta, #AF0066));
+            z-index: 1001;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+        .scroll-progress.is-visible {
+            opacity: 1;
+        }
+    `;
+    document.head.appendChild(progressStyle);
+    document.body.appendChild(scrollProgress);
+
+    function updateScrollProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+
+        scrollProgress.style.width = scrollPercent + '%';
+
+        if (scrollTop > 200) {
+            scrollProgress.classList.add('is-visible');
+        } else {
+            scrollProgress.classList.remove('is-visible');
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        requestAnimationFrame(updateScrollProgress);
+    }, { passive: true });
 
 })();
