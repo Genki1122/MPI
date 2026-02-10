@@ -338,6 +338,47 @@ body.is-loaded {
     color: var(--color-text);
 }
 
+/* Typing Animation */
+.typing-text {
+    min-height: 4em;
+}
+
+.typing-line {
+    display: inline;
+}
+
+.typing-char {
+    opacity: 0;
+    animation: charReveal 0.4s var(--ease-out-quint) forwards;
+}
+
+@keyframes charReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.typing-text.is-typing::after {
+    content: '|';
+    animation: cursorBlink 0.8s var(--ease-breath) infinite;
+    margin-left: 2px;
+    color: var(--color-purple);
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.typing-text.is-typed::after {
+    display: none;
+}
+
 .philosophy-description {
     max-width: 540px;
     margin: 0 auto;

@@ -203,6 +203,87 @@
     });
 
     // ===================================
+    // Typing Animation - 一文字ずつ現れる
+    // ===================================
+    const typingElements = document.querySelectorAll('.typing-text');
+
+    typingElements.forEach(el => {
+        const text = el.getAttribute('data-text');
+        if (!text) return;
+
+        // Split by | for line breaks
+        const lines = text.split('|');
+        let hasTyped = false;
+
+        // Create typing observer
+        const typingObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !hasTyped) {
+                    hasTyped = true;
+                    el.classList.add('is-typing');
+                    typeText(el, lines);
+                }
+            });
+        }, {
+            rootMargin: '-20% 0px -20% 0px',
+            threshold: 0.5
+        });
+
+        typingObserver.observe(el);
+    });
+
+    function typeText(element, lines) {
+        element.innerHTML = '';
+        let lineIndex = 0;
+        let charIndex = 0;
+        const charDelay = 120; // ms between characters
+        const lineDelay = 300; // extra delay after line break
+
+        function type() {
+            if (lineIndex >= lines.length) {
+                element.classList.remove('is-typing');
+                element.classList.add('is-typed');
+                return;
+            }
+
+            const currentLine = lines[lineIndex];
+
+            if (charIndex < currentLine.length) {
+                // Add character
+                const char = currentLine[charIndex];
+                const span = document.createElement('span');
+                span.className = 'typing-char';
+                span.textContent = char;
+                span.style.animationDelay = '0ms';
+
+                // Find or create line container
+                let lineContainer = element.querySelector(`.typing-line-${lineIndex}`);
+                if (!lineContainer) {
+                    lineContainer = document.createElement('span');
+                    lineContainer.className = `typing-line typing-line-${lineIndex}`;
+                    element.appendChild(lineContainer);
+                }
+
+                lineContainer.appendChild(span);
+                charIndex++;
+
+                setTimeout(type, charDelay);
+            } else {
+                // Move to next line
+                if (lineIndex < lines.length - 1) {
+                    element.appendChild(document.createElement('br'));
+                }
+                lineIndex++;
+                charIndex = 0;
+                setTimeout(type, lineDelay);
+            }
+        }
+
+        // Start typing with initial delay
+        setTimeout(type, 400);
+    }
+
+    // ===================================
     // Cursor Effect - 知的な追従
     // ===================================
     const cursor = document.createElement('div');
