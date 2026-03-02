@@ -206,8 +206,8 @@ body.is-loaded {
 }
 
 .hero-logo-img {
-    max-width: 280px;
-    width: 60vw;
+    max-width: 300px;
+    width: 65vw;
     height: auto;
 }
 
@@ -249,7 +249,7 @@ body.is-loaded {
 .logo-char--tangerine {
     font-family: 'Tangerine', cursive;
     font-weight: 700;
-    font-size: clamp(5.5rem, 12vw, 8.5rem);
+    font-size: clamp(5rem, 11vw, 7.5rem);
     line-height: 0.75;
     margin-right: -0.02em;
 }
