@@ -4,266 +4,244 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MPI - Managing Professional Intellect</title>
-    <meta name="description" content="株式会社MPI - Managing Professional Intellect. 知の複利を追求するプロフェッショナル集団。">
+    <meta name="description" content="株式会社MPI - Managing Professional Intellect. 知の真価を問い、歳月を複利へと転換する。30年の実証に基づく知の資産化。">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400;500;600&family=Ovo&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Kapakana&family=Noto+Serif+JP:wght@200;300;400;500;600&family=Ovo&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation — links to 川中 pages -->
     <nav class="nav" id="nav">
         <div class="nav-logo">
-            <a href="#top">MPI</a>
+            <a href="/">MPI</a>
         </div>
         <button class="nav-toggle" id="navToggle" aria-label="メニュー">
             <span></span>
             <span></span>
         </button>
         <ul class="nav-menu" id="navMenu">
-            <li><a href="#philosophy">Philosophy</a></li>
-            <li><a href="#service">Service</a></li>
-            <li><a href="#works">Works</a></li>
-            <li><a href="#news">News</a></li>
-            <li><a href="#profile">Profile</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="service/">Service</a></li>
+            <li><a href="works/">Works</a></li>
+            <li><a href="news/">News</a></li>
+            <li><a href="profile/">Profile</a></li>
+            <li><a href="contact/">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- Section 1: Top / Hero -->
-    <section class="section section--hero" id="top">
-        <div class="hero-content">
-            <div class="hero-visual fade-in">
-                <img src="images/TOPページイメージ.png" alt="MPI - Managing Professional Intellect" class="hero-image">
+    <!-- ============================================
+         HERO — MPI Logo + Logotype
+         ============================================ -->
+    <section class="hero" id="top">
+        <div class="hero-inner">
+            <div class="hero-logo fade-in">
+                <img src="images/MPI.png" alt="MPI" class="hero-logo-img">
+            </div>
+
+            <!-- Logotype: 文字単位の精密構築 -->
+            <div class="hero-logotype" aria-label="Managing Professional Intellect">
+                <span class="logo-word hero-word">
+                    <span class="logo-char logo-char--tangerine logo-color--purple">M</span><span class="logo-char logo-char--ovo logo-color--purple">anaging</span>
+                </span>
+                <span class="logo-word hero-word">
+                    <span class="logo-char logo-char--kapakana logo-char--rotated logo-color--purple">P</span><span class="logo-char logo-char--ovo logo-color--purple">rofessional</span>
+                </span>
+                <span class="logo-word hero-word">
+                    <span class="logo-char logo-char--kapakana logo-char--rotated logo-color--purple">I</span><span class="logo-char logo-char--ovo logo-color--purple">ntellect</span>
+                </span>
             </div>
         </div>
-        <div class="scroll-indicator fade-in delay-1">
+
+        <div class="scroll-indicator fade-in delay-2">
             <span>Scroll</span>
             <div class="scroll-line"></div>
         </div>
     </section>
 
-    <!-- Section 2: Philosophy -->
-    <section class="section section--philosophy" id="philosophy">
-        <div class="section-inner section-inner--centered">
-            <div class="section-label fade-in">
-                <span class="label-number">01</span>
-                <span class="label-text">Philosophy</span>
-            </div>
+    <!-- ============================================
+         PILLAR 1 — 導入：「知の真価」とは何か
+         ============================================ -->
+    <section class="pillar" id="pillar-1">
+        <div class="pillar-inner">
 
-            <div class="philosophy-content">
-                <h2 class="section-heading fade-in">
-                    <span class="heading-en">Philosophy First Policy</span>
-                </h2>
-
-                <div class="philosophy-statement">
-                    <p class="statement-main typing-text" data-text="知の複利を、|社会に還元する。">
-                    </p>
-                </div>
-
-                <div class="philosophy-description fade-in delay-2">
-                    <p>
-                        私たちは、哲学を判断基準の最上位に置く。<br>
-                        合理と非合理のバランスの中で、<br>
-                        本質的な価値を創出する。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 3: Service / Structure -->
-    <section class="section section--service" id="service">
-        <div class="section-inner">
-            <div class="section-label fade-in">
-                <span class="label-number">02</span>
-                <span class="label-text">Service</span>
-            </div>
-
-            <h2 class="section-heading fade-in">
-                <span class="heading-en">Structure of Value</span>
+            <h2 class="pillar-heading fade-in">
+                <span class="pillar-heading-main">「知の真価」とは何か。</span>
             </h2>
 
-            <div class="service-grid">
-                <div class="service-item fade-in delay-1">
-                    <div class="service-number">01</div>
-                    <h3 class="service-title">Strategic Consulting</h3>
-                    <p class="service-desc">
-                        経営戦略の立案から実行支援まで。<br>
-                        本質を見極め、最適解を導く。
-                    </p>
-                </div>
-
-                <div class="service-item fade-in delay-2">
-                    <div class="service-number">02</div>
-                    <h3 class="service-title">Brand Development</h3>
-                    <p class="service-desc">
-                        ブランドの核心を抽出し、<br>
-                        世界市場で機能する価値へ昇華。
-                    </p>
-                </div>
-
-                <div class="service-item fade-in delay-3">
-                    <div class="service-number">03</div>
-                    <h3 class="service-title">Project Organizing</h3>
-                    <p class="service-desc">
-                        複雑な利害を調整し、<br>
-                        プロジェクトを確実に推進する。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 4: Works / Case Studies -->
-    <section class="section section--works" id="works">
-        <div class="section-inner">
-            <div class="section-label fade-in">
-                <span class="label-number">03</span>
-                <span class="label-text">Works</span>
-            </div>
-
-            <h2 class="section-heading fade-in">
-                <span class="heading-en">Case Studies</span>
-            </h2>
-
-            <div class="works-grid works-grid--cards">
-                <a href="works/hint-mint.html" class="work-card work-card--image fade-in delay-1">
-                    <div class="work-card-image">
-                        <img src="images/hint-mint.jpg" alt="Hint Mint" loading="lazy">
-                    </div>
-                    <div class="work-card-content">
-                        <span class="work-category">Brand Produce</span>
-                        <h3 class="work-title">Hint Mint</h3>
-                        <p class="work-achievement">アカデミー賞公式ギフト採用</p>
-                    </div>
-                </a>
-
-                <a href="works/ukiyoe.html" class="work-card work-card--image fade-in delay-2">
-                    <div class="work-card-image">
-                        <img src="images/ukiyoe.jpg" alt="浮世絵プロジェクト" loading="lazy">
-                    </div>
-                    <div class="work-card-content">
-                        <span class="work-category">Cultural Asset</span>
-                        <h3 class="work-title">浮世絵プロジェクト</h3>
-                        <p class="work-achievement">休眠文化資産の収益化モデル</p>
-                    </div>
-                </a>
-
-                <a href="works/jasdf.html" class="work-card work-card--image fade-in delay-3">
-                    <div class="work-card-image work-card-image--placeholder">
-                        <span class="placeholder-text">JASDF</span>
-                    </div>
-                    <div class="work-card-content">
-                        <span class="work-category">Government</span>
-                        <h3 class="work-title">JASDF Original Mint</h3>
-                        <p class="work-achievement">航空自衛隊オリジナル企画</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 5: News / Articles -->
-    <section class="section section--news" id="news">
-        <div class="section-inner">
-            <div class="section-label fade-in">
-                <span class="label-number">04</span>
-                <span class="label-text">News</span>
-            </div>
-
-            <h2 class="section-heading fade-in">
-                <span class="heading-en">Articles</span>
-            </h2>
-
-            <div class="news-grid">
-                <article class="news-item fade-in delay-1">
-                    <time class="news-date">2026.04.01</time>
-                    <h3 class="news-title">
-                        <a href="articles/sample-article.html">サイトを公開しました</a>
-                    </h3>
-                </article>
-            </div>
-
-            <div class="news-more fade-in delay-2">
-                <a href="articles/" class="link-more">View All Articles</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 6: Profile / Company -->
-    <section class="section section--profile" id="profile">
-        <div class="section-inner">
-            <div class="section-label fade-in">
-                <span class="label-number">05</span>
-                <span class="label-text">Profile</span>
-            </div>
-
-            <h2 class="section-heading fade-in">
-                <span class="heading-en">Company</span>
-            </h2>
-
-            <div class="profile-content">
-                <div class="profile-info fade-in delay-1">
-                    <dl class="profile-list">
-                        <div class="profile-row">
-                            <dt>Company</dt>
-                            <dd>株式会社MPI</dd>
-                        </div>
-                        <div class="profile-row">
-                            <dt>Founded</dt>
-                            <dd>2004年</dd>
-                        </div>
-                        <div class="profile-row">
-                            <dt>Representative</dt>
-                            <dd>代表取締役 里舘美津子</dd>
-                        </div>
-                        <div class="profile-row">
-                            <dt>Business</dt>
-                            <dd>Strategic Consulting / Brand Development / Project Management</dd>
-                        </div>
-                    </dl>
-                </div>
-
-                <div class="profile-background fade-in delay-2">
-                    <h3 class="profile-subtitle">Background</h3>
-                    <ul class="background-list">
-                        <li>慶應義塾大学法学部卒</li>
-                        <li>USCPA（米国公認会計士）</li>
-                        <li>元国際線CA</li>
-                        <li>外資系コンサルティングファーム出身</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 7: Contact -->
-    <section class="section section--contact" id="contact">
-        <div class="section-inner">
-            <div class="section-label fade-in">
-                <span class="label-number">06</span>
-                <span class="label-text">Contact</span>
-            </div>
-
-            <div class="contact-content fade-in delay-1">
-                <p class="contact-lead">
-                    お問い合わせは下記よりお願いいたします。
+            <div class="pillar-body">
+                <p class="fade-in">
+                    私たちは30年にわたり、独自のブランド構築や文化事業、国際プロジェクトをプロデュースすると共に、次世代への還元として、大学や講演での教育活動を通じて<strong>「知の継承」</strong>を行ってまいりました。
                 </p>
-                <a href="mailto:contact@mpi.co.jp" class="contact-email">
-                    contact@mpi.co.jp
+
+                <p class="fade-in">
+                    実務と教育の両輪における全ての活動は、この一語の意味と重さに、ただ一点、向き合い続けるものでした。
+                </p>
+
+                <blockquote class="statement-quote fade-in">
+                    <p>
+                        知とは、単に消費される情報ではありません。
+                    </p>
+                    <p>
+                        人間活動における摩耗と不全を排し、歳月を<strong>「複利」</strong>へと転換する静かなる資産。研ぎ澄まされたインテリジェンスがもたらすのは、一過性の目標達成ではないのです。
+                    </p>
+                </blockquote>
+
+                <p class="fade-in">
+                    本質を見極める精度を極限まで高め、すべての選択と行動に意味と確信を持つこと。それにより、あらゆる「時間の点」を、知的昇華という深化と、経済活動の発展へと変える<strong>「構造化」</strong>を行う。
+                </p>
+
+                <p class="fade-in">
+                    最終的には、人間の脳と心の充足をもたらすための<strong>「知の資産化」</strong>として新しい命を宿し、時代に適した新しいスタイルとなって、人々の間で継承されていくこと。
+                </p>
+
+                <p class="pillar-conclusion fade-in">
+                    それこそが、MPIの考える<strong>「知の真価」</strong>への答えです。
+                </p>
+            </div>
+
+            <div class="pillar-cta fade-in">
+                <a href="works/" class="cta-link">
+                    <span class="cta-label">View Works</span>
+                    <span class="cta-arrow">&rarr;</span>
                 </a>
             </div>
+        </div>
+    </section>
+
+    <hr class="section-divider" aria-hidden="true">
+
+    <!-- ============================================
+         PILLAR 2 — 核心：心の温度や感性を、時代を超える資本へ
+         ============================================ -->
+    <section class="pillar" id="pillar-2">
+        <div class="pillar-inner">
+
+            <h2 class="pillar-heading fade-in">
+                <span class="pillar-heading-main">心の温度や感性を、<br>時代を超える資本へ。</span>
+            </h2>
+
+            <div class="pillar-body">
+                <p class="fade-in">
+                    私たちが大切にしているのは、日本人固有の特性や感性を、グローバル市場で機能する<strong>「強固な武器」</strong>に変えることです。
+                </p>
+
+                <p class="fade-in">
+                    日本には、類稀なる知的・文化・国際価値の<strong>「光」</strong>がありながら、目先の経済に翻弄され、資産化されないまま眠っているリソースが数多くあります。それは、改善を「足りないものを探す減点方式」と捉えてしまっているためです。
+                </p>
+
+                <p class="fade-in">
+                    私たちは<strong>「いま、持っているもの」の価値を見極め、資産化する手順と設計を構築し、人間の誇りを守ること</strong>を重視しています。
+                </p>
+
+                <p class="fade-in">
+                    日本国内で正当な評価を得にくいものは、欧米市場で先に評価を確立し、日本・アジアへ逆輸入する。あるいは未開発のリソースを新規プロジェクトへ落とし込み、事業化する。
+                </p>
+
+                <p class="fade-in">
+                    歳月を味方につけ、知の資産化を体現してきたこれら<strong>「実証に基づく個別カスタマイズ戦略」</strong>こそが、MPIの一貫した「知の真価」に根ざした活動です。
+                </p>
+
+                <p class="pillar-conclusion fade-in">
+                    日常の活動を単なる「処理」として消費し、表面的な合理化で価値を潰してはなりません。既存のパッケージを押し当てるだけのコンサルティングでは、個人と組織に<strong>「活気」という名の熱量</strong>は生まれないのです。
+                </p>
+            </div>
+
+            <div class="pillar-cta fade-in">
+                <a href="service/" class="cta-link">
+                    <span class="cta-label">View Service</span>
+                    <span class="cta-arrow">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider" aria-hidden="true">
+
+    <!-- ============================================
+         PILLAR 3 — 設計と境界突破
+         ============================================ -->
+    <section class="pillar" id="pillar-3">
+        <div class="pillar-inner">
+
+            <h2 class="pillar-heading fade-in">
+                <span class="pillar-heading-main">境界は、すでに<br>存在しない時代です。</span>
+            </h2>
+
+            <div class="pillar-body">
+                <p class="fade-in">
+                    あらゆる労と時間を、境界や時代を超える「知的資本」へと転換するために。私たちは、時間が経っても、人心が揺らいでも決してブレや浪費を生じさせない<strong>「本質の設計」</strong>と、個人・法人の羅針盤となる<strong>「個別のオリジナル憲法」</strong>の確立を最上位に置きます。
+                </p>
+
+                <p class="fade-in">
+                    国内と国際、職種と業種、学問（勉強）と実務、年齢で分断する経歴や世代。人の脳が作り出した「あてはめと分断」が、現代の閉塞感を生んでいます。国際はすでにデフォルトであり、特別なことではありません。<strong>「心に響く」という一点において、マーケットも人間社会も一つ</strong>なのです。
+                </p>
+
+                <p class="fade-in">
+                    国際においては、言語変換だけの翻訳型コミュニケーションでは壁を生みます。比較文化に根差さない結果、多国籍な理解と発展が伴わず、通じるのは物理的数字だけという「つまらない会話」になり、持続可能（サステナブル）に継続する絆や信頼が生まれません。
+                </p>
+
+                <p class="fade-in">
+                    国際コミュニケーションとして、英語を使っても日本の思考に無意識に置き換えたり、立場による断絶が起きたりしないよう、<strong>「超言語」</strong>の視座で、解釈と思考まで支配されないアプローチを刷新し、視覚表現としてのクリエイティブを導入することで、境界を突破し、新しい価値とチャンネルを創出します。
+                </p>
+
+                <p class="pillar-conclusion fade-in">
+                    日本の固定概念や既成通念、価値基準で、大事な価値と誇りを失わない。そのために実務と教育の両面での活動をしてきたことが、<strong>30年の歩みであり、MPIの使命</strong>です。
+                </p>
+            </div>
+
+            <div class="pillar-cta fade-in">
+                <a href="works/" class="cta-link">
+                    <span class="cta-label">View Works</span>
+                    <span class="cta-arrow">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         INDEX — 川中ページへの目次
+         ============================================ -->
+    <section class="index-section" id="index">
+        <div class="index-inner">
+            <p class="index-label fade-in">Index</p>
+
+            <nav class="index-grid">
+                <a href="service/" class="index-item fade-in">
+                    <span class="index-number">01</span>
+                    <span class="index-name">Service</span>
+                    <span class="index-desc">Structure of Value</span>
+                </a>
+                <a href="works/" class="index-item fade-in delay-1">
+                    <span class="index-number">02</span>
+                    <span class="index-name">Works</span>
+                    <span class="index-desc">Case Studies</span>
+                </a>
+                <a href="news/" class="index-item fade-in delay-2">
+                    <span class="index-number">03</span>
+                    <span class="index-name">News</span>
+                    <span class="index-desc">Articles</span>
+                </a>
+                <a href="profile/" class="index-item fade-in delay-3">
+                    <span class="index-number">04</span>
+                    <span class="index-name">Profile</span>
+                    <span class="index-desc">Company</span>
+                </a>
+                <a href="contact/" class="index-item fade-in delay-4">
+                    <span class="index-number">05</span>
+                    <span class="index-name">Contact</span>
+                    <span class="index-desc">Get in Touch</span>
+                </a>
+            </nav>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-inner">
-            <p class="footer-copy">&copy; MPI Inc. All Rights Reserved.</p>
+            <p class="footer-copy">&copy; MPI Co., Ltd. All Rights Reserved.</p>
         </div>
     </footer>
 
