@@ -200,14 +200,14 @@ body.is-loaded {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--ma-sm);
-    padding-top: var(--ma-md);
+    gap: 0;
+    padding-top: var(--ma-lg);
     padding-bottom: var(--ma-xl);
 }
 
 .hero-logo-img {
-    max-width: 320px;
-    width: 70vw;
+    max-width: 280px;
+    width: 60vw;
     height: auto;
 }
 
@@ -217,8 +217,8 @@ body.is-loaded {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: var(--ma-sm);
-    gap: 0.1em;
+    margin-top: var(--ma-xs);
+    gap: 0.15em;
 }
 
 .logo-word {
@@ -249,16 +249,17 @@ body.is-loaded {
 .logo-char--tangerine {
     font-family: 'Tangerine', cursive;
     font-weight: 700;
-    font-size: clamp(5rem, 11vw, 8rem);
+    font-size: clamp(5.5rem, 12vw, 8.5rem);
     line-height: 0.75;
     margin-right: -0.02em;
 }
 
 /* "P", "I" — Kapakana Regular: Core Pillars, rotated -8deg */
+/* Kapakana は Regular のみで線が細いため、M と並列の存在感を出すにはサイズで補う */
 .logo-char--kapakana {
     font-family: 'Kapakana', cursive;
     font-weight: 400;
-    font-size: clamp(4.5rem, 10vw, 7rem);
+    font-size: clamp(5.5rem, 12vw, 8.5rem);
     line-height: 0.8;
 }
 
@@ -266,7 +267,7 @@ body.is-loaded {
     display: inline-block;
     transform: rotate(-8deg);
     transform-origin: center baseline;
-    margin-right: -0.06em;
+    margin-right: -0.04em;
     position: relative;
 }
 
@@ -355,8 +356,8 @@ body.is-loaded {
 }
 
 .pillar-body p {
-    font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
-    line-height: 2.6;
+    font-size: clamp(1rem, 1.6vw, 1.125rem);
+    line-height: 2.4;
     letter-spacing: 0.07em;
     color: var(--color-text-secondary);
 }
@@ -399,8 +400,8 @@ body.is-loaded {
 }
 
 .statement-quote p {
-    font-size: clamp(1rem, 1.6vw, 1.125rem) !important;
-    line-height: 2.8 !important;
+    font-size: clamp(1.0625rem, 1.8vw, 1.1875rem) !important;
+    line-height: 2.6 !important;
     color: var(--color-text) !important;
     letter-spacing: 0.08em;
 }
@@ -647,7 +648,7 @@ body.is-loaded {
     }
 
     .hero-logo-img {
-        max-width: 240px;
+        max-width: 200px;
     }
 
     .pillar-heading-main {
