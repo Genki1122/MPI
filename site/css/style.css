@@ -200,13 +200,14 @@ body.is-loaded {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--ma-md);
+    gap: var(--ma-sm);
+    padding-top: var(--ma-md);
     padding-bottom: var(--ma-xl);
 }
 
 .hero-logo-img {
-    max-width: 400px;
-    width: 80vw;
+    max-width: 320px;
+    width: 70vw;
     height: auto;
 }
 
@@ -216,7 +217,7 @@ body.is-loaded {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: var(--ma-md);
+    margin-top: var(--ma-sm);
     gap: 0.1em;
 }
 
@@ -257,7 +258,7 @@ body.is-loaded {
 .logo-char--kapakana {
     font-family: 'Kapakana', cursive;
     font-weight: 400;
-    font-size: clamp(4rem, 9vw, 6.5rem);
+    font-size: clamp(4.5rem, 10vw, 7rem);
     line-height: 0.8;
 }
 
@@ -354,9 +355,9 @@ body.is-loaded {
 }
 
 .pillar-body p {
-    font-size: clamp(0.875rem, 1.2vw, 0.9375rem);
+    font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
     line-height: 2.6;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.07em;
     color: var(--color-text-secondary);
 }
 
@@ -398,7 +399,7 @@ body.is-loaded {
 }
 
 .statement-quote p {
-    font-size: clamp(0.9375rem, 1.4vw, 1.0625rem) !important;
+    font-size: clamp(1rem, 1.6vw, 1.125rem) !important;
     line-height: 2.8 !important;
     color: var(--color-text) !important;
     letter-spacing: 0.08em;
@@ -637,7 +638,7 @@ body.is-loaded {
     }
 
     .hero-logo-img {
-        max-width: 280px;
+        max-width: 240px;
     }
 
     .pillar-heading-main {
