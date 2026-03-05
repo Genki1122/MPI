@@ -29,6 +29,17 @@
     });
 
     // ===================================
+    // Staggered paragraph animation
+    // Pillar本文の段落に順次遅延を付与し体感長を短縮
+    // ===================================
+    document.querySelectorAll('.pillar-body').forEach((body) => {
+        const paragraphs = body.querySelectorAll('.fade-in');
+        paragraphs.forEach((p, i) => {
+            p.style.transitionDelay = (i * 0.12) + 's';
+        });
+    });
+
+    // ===================================
     // Navigation scroll state
     // ===================================
     const nav = document.getElementById('nav');

@@ -216,10 +216,16 @@ body.is-loaded {
 .hero-logotype {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     margin-top: var(--ma-xs);
     gap: 0.15em;
+    padding-left: 10%;
 }
+
+/* 左斜め階段配置 — 左上→右下へ流れるダイアゴナル */
+.hero-word:nth-child(1) { margin-left: 0; }
+.hero-word:nth-child(2) { margin-left: 2.5em; }
+.hero-word:nth-child(3) { margin-left: 5em; }
 
 .logo-word {
     display: inline-flex;
@@ -445,12 +451,49 @@ body.is-loaded {
 
 
 /* ===================================
+   Section Backgrounds — セクション色の呼吸
+   白→極薄色→白の流れで読み進める意識を促す
+   =================================== */
+
+#pillar-1 {
+    background: linear-gradient(
+        180deg,
+        var(--color-white) 0%,
+        rgba(92, 0, 164, 0.018) 30%,
+        rgba(92, 0, 164, 0.018) 70%,
+        var(--color-white) 100%
+    );
+}
+
+#pillar-2 {
+    background: linear-gradient(
+        180deg,
+        var(--color-white) 0%,
+        rgba(175, 0, 102, 0.015) 30%,
+        rgba(175, 0, 102, 0.015) 70%,
+        var(--color-white) 100%
+    );
+}
+
+#pillar-3 {
+    background: linear-gradient(
+        180deg,
+        var(--color-white) 0%,
+        rgba(92, 0, 164, 0.012) 30%,
+        rgba(92, 0, 164, 0.012) 70%,
+        var(--color-white) 100%
+    );
+}
+
+
+/* ===================================
    Core Bridge — 核心ページへの導線
    「何をしているのか？」に応える実体
    =================================== */
 
 .core-bridge {
     padding: var(--ma-md) var(--ma-lg);
+    background: rgba(0, 0, 0, 0.012);
 }
 
 .core-bridge-inner {
@@ -730,6 +773,18 @@ body.is-loaded {
     padding: 0 var(--ma-lg);
     height: 1px;
     background: var(--color-rule);
+    position: relative;
+}
+
+.section-divider::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    width: 1px;
+    height: 16px;
+    background: linear-gradient(to bottom, var(--color-rule), transparent);
+    animation: scrollBreath 2.4s var(--ease-breath) infinite;
 }
 
 
@@ -920,6 +975,13 @@ body.is-loaded {
     .pillar {
         padding: var(--ma-xxl) var(--ma-sm);
     }
+
+    .hero-logotype {
+        padding-left: 5%;
+    }
+
+    .hero-word:nth-child(2) { margin-left: 1.5em; }
+    .hero-word:nth-child(3) { margin-left: 3em; }
 
     .hero-logo-img {
         max-width: 200px;
