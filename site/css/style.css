@@ -30,12 +30,12 @@
     --font-accent: 'Tangerine', cursive;
 
     /* Ma (間) — 時間的インターフェース */
-    --ma-xs: 0.75rem;     /* 12px  — breath */
-    --ma-sm: 1.5rem;      /* 24px  — pause */
-    --ma-md: 3rem;        /* 48px  — rest */
-    --ma-lg: 6rem;        /* 96px  — contemplation */
-    --ma-xl: 10rem;       /* 160px — deep breath */
-    --ma-xxl: 16rem;      /* 256px — silence between pillars */
+    --ma-xs: 0.5rem;      /* 8px   — breath */
+    --ma-sm: 1rem;        /* 16px  — pause */
+    --ma-md: 2rem;        /* 32px  — rest */
+    --ma-lg: 3.5rem;      /* 56px  — contemplation */
+    --ma-xl: 6rem;        /* 96px  — deep breath */
+    --ma-xxl: 10rem;      /* 160px — silence between pillars */
 
     /* Easing — 呼吸の曲線 */
     --ease-breath: cubic-bezier(0.4, 0, 0.2, 1);
@@ -57,7 +57,7 @@ html {
 body {
     font-family: var(--font-body);
     font-weight: 300;
-    line-height: 2.2;
+    line-height: 1.9;
     letter-spacing: 0.06em;
     color: var(--color-text);
     background-color: var(--color-white);
@@ -335,14 +335,14 @@ body.is-loaded {
 /* --- Pillar Heading (Signal Bold) --- */
 
 .pillar-heading {
-    margin-bottom: var(--ma-xl);
+    margin-bottom: var(--ma-lg);
 }
 
 .pillar-heading-main {
     font-family: var(--font-body);
     font-size: clamp(1.625rem, 4vw, 2.25rem);
     font-weight: 400;
-    line-height: 2;
+    line-height: 1.8;
     letter-spacing: 0.12em;
     color: var(--color-text);
 }
@@ -357,7 +357,7 @@ body.is-loaded {
 
 .pillar-body p {
     font-size: clamp(1rem, 1.6vw, 1.125rem);
-    line-height: 2.4;
+    line-height: 2;
     letter-spacing: 0.07em;
     color: var(--color-text-secondary);
 }
@@ -401,7 +401,7 @@ body.is-loaded {
 
 .statement-quote p {
     font-size: clamp(1.0625rem, 1.8vw, 1.1875rem) !important;
-    line-height: 2.6 !important;
+    line-height: 2.2 !important;
     color: var(--color-text) !important;
     letter-spacing: 0.08em;
 }
@@ -450,7 +450,7 @@ body.is-loaded {
    =================================== */
 
 .core-bridge {
-    padding: var(--ma-lg) var(--ma-lg);
+    padding: var(--ma-md) var(--ma-lg);
 }
 
 .core-bridge-inner {
@@ -462,7 +462,7 @@ body.is-loaded {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--ma-lg);
+    padding: var(--ma-md) var(--ma-lg);
     text-decoration: none;
     border: 1px solid var(--color-rule);
     transition: border-color var(--dur-mid) var(--ease-breath),
@@ -471,7 +471,7 @@ body.is-loaded {
 
 .core-bridge-link:hover {
     border-color: var(--color-purple);
-    padding-left: var(--ma-xl);
+    padding-left: var(--ma-lg);
 }
 
 .core-bridge-label {
@@ -580,7 +580,7 @@ body.is-loaded {
 
 .domain-body p {
     font-size: clamp(1rem, 1.6vw, 1.125rem);
-    line-height: 2.4;
+    line-height: 2;
     letter-spacing: 0.07em;
     color: var(--color-text-secondary);
 }
@@ -873,9 +873,9 @@ body.is-loaded {
 
 @media (max-width: 768px) {
     :root {
-        --ma-lg: 3rem;
-        --ma-xl: 5rem;
-        --ma-xxl: 8rem;
+        --ma-lg: 2.5rem;
+        --ma-xl: 4rem;
+        --ma-xxl: 6rem;
     }
 
     .nav {
