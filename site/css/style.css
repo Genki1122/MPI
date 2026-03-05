@@ -445,6 +445,280 @@ body.is-loaded {
 
 
 /* ===================================
+   Core Bridge — 核心ページへの導線
+   「何をしているのか？」に応える実体
+   =================================== */
+
+.core-bridge {
+    padding: var(--ma-lg) var(--ma-lg);
+}
+
+.core-bridge-inner {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.core-bridge-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--ma-lg);
+    text-decoration: none;
+    border: 1px solid var(--color-rule);
+    transition: border-color var(--dur-mid) var(--ease-breath),
+                padding-left var(--dur-mid) var(--ease-out-quint);
+}
+
+.core-bridge-link:hover {
+    border-color: var(--color-purple);
+    padding-left: var(--ma-xl);
+}
+
+.core-bridge-label {
+    font-family: var(--font-display);
+    font-size: 0.625rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    display: block;
+    margin-bottom: var(--ma-xs);
+}
+
+.core-bridge-heading {
+    font-family: var(--font-body);
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    font-weight: 400;
+    line-height: 1.8;
+    letter-spacing: 0.1em;
+    color: var(--color-text);
+    margin-bottom: 0.5em;
+}
+
+.core-bridge-desc {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+}
+
+.core-bridge-arrow {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    transition: transform var(--dur-fast) var(--ease-out-quint),
+                color var(--dur-fast) var(--ease-breath);
+    flex-shrink: 0;
+    margin-left: var(--ma-md);
+}
+
+.core-bridge-link:hover .core-bridge-arrow {
+    transform: translateX(8px);
+    color: var(--color-purple);
+}
+
+
+/* ===================================
+   Core Page — 核心ページ固有スタイル
+   =================================== */
+
+/* Page-level pillar (larger top padding for standalone pages) */
+.pillar--page {
+    padding-top: calc(var(--ma-xxl) + var(--ma-lg));
+}
+
+.page-header-label {
+    margin-bottom: var(--ma-lg);
+}
+
+.page-header-label .label-text {
+    font-family: var(--font-display);
+    font-size: 0.625rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+/* --- Domains — 二つの事業領野 --- */
+
+.domains {
+    padding: var(--ma-xl) var(--ma-lg);
+}
+
+.domains-inner {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.domain-item {
+    padding: var(--ma-xl) 0;
+}
+
+.domain-header {
+    margin-bottom: var(--ma-lg);
+}
+
+.domain-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--color-text);
+    margin-bottom: 0.4em;
+}
+
+.domain-subtitle {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    letter-spacing: 0.15em;
+    color: var(--color-text-muted);
+}
+
+.domain-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ma-lg);
+}
+
+.domain-body p {
+    font-size: clamp(1rem, 1.6vw, 1.125rem);
+    line-height: 2.4;
+    letter-spacing: 0.07em;
+    color: var(--color-text-secondary);
+}
+
+.domain-body strong {
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.domain-cta {
+    margin-top: var(--ma-lg);
+    text-align: right;
+}
+
+/* --- Knowledge Layers — 知の三階層 --- */
+
+.knowledge-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: var(--ma-md);
+    border-top: 1px solid var(--color-rule);
+}
+
+.layer-item {
+    display: flex;
+    gap: var(--ma-md);
+    padding: var(--ma-md) 0;
+    border-bottom: 1px solid var(--color-rule);
+}
+
+.layer-number {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+    padding-top: 0.2em;
+}
+
+.layer-content {
+    flex: 1;
+}
+
+.layer-title {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--color-text);
+    margin-bottom: 0.5em;
+}
+
+.layer-meta {
+    font-weight: 300;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin-left: 0.25em;
+}
+
+.layer-content p {
+    font-size: 0.875rem !important;
+    line-height: 2.2 !important;
+    color: var(--color-text-secondary);
+}
+
+/* --- Time Judgment — 時間の審判 --- */
+
+.time-judgment {
+    margin-top: var(--ma-lg);
+}
+
+.time-judgment-title {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--color-text);
+    margin-bottom: var(--ma-md);
+}
+
+.time-judgment p {
+    font-size: clamp(1rem, 1.6vw, 1.125rem);
+    line-height: 2.4;
+    letter-spacing: 0.07em;
+    color: var(--color-text-secondary);
+}
+
+.time-judgment strong {
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+/* --- Core Return — トップへ戻る --- */
+
+.core-return {
+    padding: var(--ma-xl) var(--ma-lg);
+    border-top: 1px solid var(--color-rule);
+}
+
+.core-return-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* --- Detail Nav (Back button) --- */
+
+.nav--detail {
+    justify-content: space-between;
+}
+
+.nav-back {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted);
+    transition: color var(--dur-fast) var(--ease-breath);
+}
+
+.nav-back:hover {
+    color: var(--color-text);
+}
+
+.nav-back svg {
+    transition: transform var(--dur-fast) var(--ease-out-quint);
+}
+
+.nav-back:hover svg {
+    transform: translateX(-4px);
+}
+
+
+/* ===================================
    Section Divider — Horizontal Rule
    一つの話題を消化してから次へ
    =================================== */
@@ -485,7 +759,7 @@ body.is-loaded {
 
 .index-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 0;
     border-top: 1px solid var(--color-rule);
 }
@@ -676,6 +950,34 @@ body.is-loaded {
 
     .index-section {
         padding: var(--ma-xl) var(--ma-sm);
+    }
+
+    .core-bridge {
+        padding: var(--ma-md) var(--ma-sm);
+    }
+
+    .core-bridge-link {
+        padding: var(--ma-md);
+    }
+
+    .core-bridge-link:hover {
+        padding-left: var(--ma-md);
+    }
+
+    .core-bridge-arrow {
+        margin-left: var(--ma-sm);
+    }
+
+    .domains {
+        padding: var(--ma-lg) var(--ma-sm);
+    }
+
+    .pillar--page {
+        padding-top: calc(var(--ma-xl) + var(--ma-lg));
+    }
+
+    .layer-item {
+        gap: var(--ma-sm);
     }
 }
 
