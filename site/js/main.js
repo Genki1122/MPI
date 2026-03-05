@@ -156,4 +156,35 @@
         },
         { passive: true }
     );
+
+    // ===================================
+    // Content Protection — コピー保護
+    // ===================================
+
+    // 右クリック禁止
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+
+    // コピー操作禁止
+    document.addEventListener('copy', function (e) {
+        e.preventDefault();
+    });
+
+    // 画像ドラッグ禁止
+    document.addEventListener('dragstart', function (e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
+
+    // キーボードショートカット制限 (Ctrl/Cmd + C, U, S)
+    document.addEventListener('keydown', function (e) {
+        if (e.ctrlKey || e.metaKey) {
+            var key = e.key.toLowerCase();
+            if (key === 'c' || key === 'u' || key === 's') {
+                e.preventDefault();
+            }
+        }
+    });
 })();
