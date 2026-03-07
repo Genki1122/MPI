@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Preview — 知の三階層 / 五箇条の憲法 | MPI</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400;500;600&family=Ovo&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Reset --- */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --color-white: #ffffff;
+            --color-bg: #fcfcfc;
+            --color-text: #1a1a1a;
+            --color-text-secondary: #555555;
+            --color-text-muted: #999999;
+            --color-rule: rgba(0, 0, 0, 0.08);
+            --color-purple: #5C00A4;
+            --color-magenta: #AF0066;
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Noto Serif JP', serif;
+            --ease-breath: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.9;
+            letter-spacing: 0.06em;
+            color: var(--color-text);
+            background: var(--color-white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Preview Header --- */
+        .preview-header {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--color-rule);
+            background: var(--color-bg);
+        }
+
+        .preview-header h1 {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            font-weight: 400;
+        }
+
+        .preview-header p {
+            font-size: 0.8125rem;
+            color: var(--color-text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .preview-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .preview-label {
+            font-family: var(--font-display);
+            font-size: 0.625rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .preview-title {
+            font-family: var(--font-body);
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .preview-divider {
+            border: none;
+            height: 1px;
+            background: var(--color-rule);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+
+        /* ===================================
+           同心円 — 知の三階層
+           OS設計図としての視覚表現
+           =================================== */
+
+        .circles-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .circles-visual {
+            position: relative;
+            width: 380px;
+            height: 380px;
+            max-width: 90vw;
+            max-height: 90vw;
+        }
+
+        .circles-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* 各リング — ストロークのみ、フィルなし */
+        .circle-ring {
+            fill: none;
+            stroke-width: 1;
+            opacity: 0;
+            transition: opacity 1.2s var(--ease-breath),
+                        stroke-width 0.6s var(--ease-breath);
+        }
+
+        .circle-ring.is-visible { opacity: 1; }
+
+        .circle-ring--skill {
+            stroke: rgba(92, 0, 164, 0.2);
+            transition-delay: 0s;
+        }
+
+        .circle-ring--capital {
+            stroke: rgba(92, 0, 164, 0.4);
+            transition-delay: 0.3s;
+        }
+
+        .circle-ring--wisdom {
+            stroke: rgba(92, 0, 164, 0.8);
+            transition-delay: 0.6s;
+        }
+
+        /* ホバーでリング強調 */
+        .circle-ring:hover {
+            stroke-width: 2.5;
+        }
+
+        .circle-ring--skill:hover  { stroke: var(--color-purple); opacity: 0.6; }
+        .circle-ring--capital:hover { stroke: var(--color-purple); opacity: 0.8; }
+        .circle-ring--wisdom:hover  { stroke: var(--color-purple); opacity: 1; }
+
+        /* 中心ラベル: OS */
+        .circles-center-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .circles-center-label .label-main {
+            font-family: var(--font-display);
+            font-size: 0.625rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            display: block;
+        }
+
+        .circles-center-label .label-jp {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            color: var(--color-text);
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        /* リング上のラベル */
+        .circle-label-text {
+            font-family: var(--font-body);
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            fill: var(--color-text-muted);
+            text-anchor: middle;
+            pointer-events: none;
+        }
+
+        .circle-label-text--wisdom {
+            fill: var(--color-text);
+            font-weight: 400;
+        }
+
+        /* 回転するアクセントリング */
+        .circle-accent {
+            fill: none;
+            stroke: var(--color-purple);
+            stroke-width: 0.5;
+            stroke-dasharray: 8 24;
+            opacity: 0.25;
+            animation: circleRotate 60s linear infinite;
+            transform-origin: 190px 190px;
+        }
+
+        @keyframes circleRotate {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        /* リプル（波紋）アニメーション */
+        .circle-ripple {
+            fill: none;
+            stroke: var(--color-purple);
+            stroke-width: 0.5;
+            opacity: 0;
+            animation: ripple 4s var(--ease-breath) infinite;
+        }
+
+        .circle-ripple:nth-child(2) { animation-delay: 1.3s; }
+        .circle-ripple:nth-child(3) { animation-delay: 2.6s; }
+
+        @keyframes ripple {
+            0%   { r: 30; opacity: 0.4; stroke-width: 1; }
+            100% { r: 185; opacity: 0; stroke-width: 0.3; }
+        }
+
+        /* 説明テキスト3列 */
+        .circles-legend {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            width: 100%;
+            max-width: 640px;
+        }
+
+        .legend-item {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.8s var(--ease-breath),
+                        transform 0.8s var(--ease-out-quint);
+        }
+
+        .legend-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .legend-item:nth-child(1) { transition-delay: 0.2s; }
+        .legend-item:nth-child(2) { transition-delay: 0.4s; }
+        .legend-item:nth-child(3) { transition-delay: 0.6s; }
+
+        .legend-number {
+            font-family: var(--font-display);
+            font-size: 0.625rem;
+            letter-spacing: 0.25em;
+            color: var(--color-text-muted);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .legend-name {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--color-text);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .legend-meta {
+            font-family: var(--font-body);
+            font-size: 0.6875rem;
+            letter-spacing: 0.08em;
+            color: var(--color-text-muted);
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .legend-desc {
+            font-size: 0.75rem;
+            line-height: 2;
+            color: var(--color-text-secondary);
+        }
+
+        /* 時間の審判 — 同心円下のステイトメント */
+        .time-statement {
+            text-align: center;
+            max-width: 520px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-rule);
+        }
+
+        .time-statement-title {
+            font-family: var(--font-display);
+            font-size: 0.625rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .time-statement p {
+            font-size: 0.875rem;
+            line-height: 2.2;
+            color: var(--color-text-secondary);
+            letter-spacing: 0.07em;
+        }
+
+        .time-statement strong {
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+
+        /* ===================================
+           五角形 — 五箇条の憲法
+           回転する構造体
+           =================================== */
+
+        .pentagon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .pentagon-visual {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            max-width: 90vw;
+            max-height: 90vw;
+        }
+
+        .pentagon-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* 五角形の外形 */
+        .pentagon-outline {
+            fill: none;
+            stroke: var(--color-purple);
+            stroke-width: 0.5;
+            opacity: 0;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: opacity 0.6s var(--ease-breath);
+        }
+
+        .pentagon-outline.is-visible {
+            opacity: 1;
+            animation: drawPentagon 3s var(--ease-out-quint) forwards;
+        }
+
+        @keyframes drawPentagon {
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* 内側の接続線 — 五芒星 */
+        .pentagon-star {
+            fill: none;
+            stroke: var(--color-purple);
+            stroke-width: 0.3;
+            opacity: 0;
+            stroke-dasharray: 1200;
+            stroke-dashoffset: 1200;
+        }
+
+        .pentagon-star.is-visible {
+            opacity: 0.15;
+            animation: drawStar 4s 1.5s var(--ease-out-quint) forwards;
+        }
+
+        @keyframes drawStar {
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* 頂点のドット */
+        .pentagon-vertex {
+            fill: var(--color-white);
+            stroke: var(--color-purple);
+            stroke-width: 1;
+            r: 4;
+            opacity: 0;
+            transition: opacity 0.6s var(--ease-breath),
+                        r 0.3s var(--ease-out-quint),
+                        fill 0.3s var(--ease-breath);
+            cursor: pointer;
+        }
+
+        .pentagon-vertex.is-visible { opacity: 1; }
+        .pentagon-vertex:nth-child(1) { transition-delay: 1.0s; }
+        .pentagon-vertex:nth-child(2) { transition-delay: 1.3s; }
+        .pentagon-vertex:nth-child(3) { transition-delay: 1.6s; }
+        .pentagon-vertex:nth-child(4) { transition-delay: 1.9s; }
+        .pentagon-vertex:nth-child(5) { transition-delay: 2.2s; }
+
+        .pentagon-vertex:hover {
+            r: 7;
+            fill: var(--color-purple);
+        }
+
+        /* 中心ラベル */
+        .pentagon-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .pentagon-center .label-main {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            color: var(--color-text);
+            display: block;
+        }
+
+        .pentagon-center .label-sub {
+            font-family: var(--font-display);
+            font-size: 0.5625rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        /* 各頂点のラベル */
+        .vertex-label {
+            position: absolute;
+            text-align: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.8s var(--ease-breath);
+        }
+
+        .vertex-label.is-visible { opacity: 1; }
+
+        .vertex-label .vertex-number {
+            font-family: var(--font-display);
+            font-size: 0.5625rem;
+            letter-spacing: 0.2em;
+            color: var(--color-purple);
+            display: block;
+        }
+
+        .vertex-label .vertex-name {
+            font-family: var(--font-body);
+            font-size: 0.8125rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--color-text);
+            display: block;
+            margin-top: 0.15rem;
+            white-space: nowrap;
+        }
+
+        /* 頂点ラベルの位置 */
+        .vertex-label--1 { top: -2%; left: 50%; transform: translateX(-50%); }
+        .vertex-label--2 { top: 32%; right: -8%; }
+        .vertex-label--3 { bottom: 8%; right: 2%; }
+        .vertex-label--4 { bottom: 8%; left: 2%; }
+        .vertex-label--5 { top: 32%; left: -8%; }
+
+        /* 全体の超低速回転 */
+        .pentagon-rotate-group {
+            transform-origin: 200px 200px;
+            animation: pentagonRotate 120s linear infinite;
+        }
+
+        @keyframes pentagonRotate {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        /* グラデーション線 */
+        .pentagon-glow {
+            fill: none;
+            stroke: url(#pentaGrad);
+            stroke-width: 1;
+            opacity: 0;
+            transition: opacity 1.2s 2s var(--ease-breath);
+        }
+
+        .pentagon-glow.is-visible { opacity: 0.3; }
+
+        /* 脈動するドット — 中心 */
+        .pentagon-pulse {
+            fill: var(--color-purple);
+            opacity: 0;
+            animation: pulse 3s var(--ease-breath) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.1; r: 3; }
+            50%      { opacity: 0.3; r: 6; }
+        }
+
+
+        /* ===================================
+           Responsive
+           =================================== */
+
+        @media (max-width: 768px) {
+            .circles-legend {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .legend-item { text-align: left; }
+
+            .circles-visual,
+            .pentagon-visual {
+                width: 300px;
+                height: 300px;
+            }
+
+            .vertex-label--2 { right: -12%; }
+            .vertex-label--5 { left: -12%; }
+
+            .vertex-label .vertex-name {
+                font-size: 0.6875rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .circles-visual,
+            .pentagon-visual {
+                width: 260px;
+                height: 260px;
+            }
+
+            .vertex-label--2,
+            .vertex-label--3 { right: -4%; }
+            .vertex-label--4,
+            .vertex-label--5 { left: -4%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="preview-header">
+        <h1>Design Preview</h1>
+        <p>知の三階層（同心円）/ 五箇条の憲法（五角形）— クライアント確認用</p>
+    </div>
+
+
+    <!-- ============================================
+         知の三階層 — 同心円 OS設計図
+         ============================================ -->
+    <section class="preview-section" id="circles">
+        <p class="preview-label">Intellectual Architecture</p>
+        <h2 class="preview-title">知の三階層</h2>
+
+        <div class="circles-container">
+
+            <div class="circles-visual">
+                <svg class="circles-svg" viewBox="0 0 380 380">
+                    <!-- リプル（波紋）— 中心から広がる -->
+                    <circle class="circle-ripple" cx="190" cy="190" r="30" />
+                    <circle class="circle-ripple" cx="190" cy="190" r="30" />
+                    <circle class="circle-ripple" cx="190" cy="190" r="30" />
+
+                    <!-- 回転アクセントリング -->
+                    <circle class="circle-accent" cx="190" cy="190" r="185" />
+
+                    <!-- 外殻: スキル（枝葉） -->
+                    <circle class="circle-ring circle-ring--skill" cx="190" cy="190" r="170" />
+
+                    <!-- 中間: 知的資本（幹） -->
+                    <circle class="circle-ring circle-ring--capital" cx="190" cy="190" r="110" />
+
+                    <!-- 中心核: 叡智（根） -->
+                    <circle class="circle-ring circle-ring--wisdom" cx="190" cy="190" r="50" />
+
+                    <!-- リングラベル -->
+                    <text class="circle-label-text" x="190" y="28">スキル（枝葉）</text>
+                    <text class="circle-label-text" x="190" y="88">知的資本（幹）</text>
+                    <text class="circle-label-text circle-label-text--wisdom" x="190" y="148">叡智（根）</text>
+                </svg>
+
+                <div class="circles-center-label">
+                    <span class="label-main">Operating System</span>
+                    <span class="label-jp">叡智</span>
+                </div>
+            </div>
+
+            <!-- 三階層の説明 -->
+            <div class="circles-legend">
+                <div class="legend-item" data-layer="skill">
+                    <span class="legend-number">01</span>
+                    <span class="legend-name">スキル</span>
+                    <span class="legend-meta">枝葉 — 腐敗する戦術</span>
+                    <p class="legend-desc">時代とともに価値が減衰し、いずれ腐敗する一時的な手法。</p>
+                </div>
+                <div class="legend-item" data-layer="capital">
+                    <span class="legend-number">02</span>
+                    <span class="legend-name">知的資本</span>
+                    <span class="legend-meta">幹 — 独自のIP</span>
+                    <p class="legend-desc">持続的な価値を創出する独自のIP。経済活動の発展を支える資産。</p>
+                </div>
+                <div class="legend-item" data-layer="wisdom">
+                    <span class="legend-number">03</span>
+                    <span class="legend-name">叡智</span>
+                    <span class="legend-meta">根 — 不変の真理</span>
+                    <p class="legend-desc">揺るぎない本質としてのOS。選択に一貫した確信を与える生きる知性。</p>
+                </div>
+            </div>
+
+            <!-- 時間の審判 -->
+            <div class="time-statement">
+                <p class="time-statement-title">The Judgment of Time</p>
+                <p>この三階層を峻別し、価値を確定させるのは<strong>「時間」</strong>という名の審判である。</p>
+                <p style="margin-top: 1rem;">時間は、真理を磨き上げる<strong>「砥石」</strong>であり、<br>同時に、小手先の手法を腐敗させる<strong>「猛毒」</strong>である。</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="preview-divider">
+
+
+    <!-- ============================================
+         五箇条の憲法 — 五角形＋回転
+         ============================================ -->
+    <section class="preview-section" id="pentagon">
+        <p class="preview-label">Constitutional Framework</p>
+        <h2 class="preview-title">五箇条の憲法</h2>
+
+        <div class="pentagon-container">
+
+            <div class="pentagon-visual">
+                <svg class="pentagon-svg" viewBox="0 0 400 400">
+                    <defs>
+                        <linearGradient id="pentaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#5C00A4" />
+                            <stop offset="100%" stop-color="#AF0066" />
+                        </linearGradient>
+                    </defs>
+
+                    <g class="pentagon-rotate-group">
+                        <!-- 五角形のグロー（グラデーション） -->
+                        <polygon class="pentagon-glow"
+                            points="200,45 352,155 294,330 106,330 48,155" />
+
+                        <!-- 五角形のアウトライン -->
+                        <polygon class="pentagon-outline"
+                            points="200,45 352,155 294,330 106,330 48,155" />
+
+                        <!-- 五芒星（内部の接続線） -->
+                        <polygon class="pentagon-star"
+                            points="200,45 294,330 48,155 352,155 106,330" />
+
+                        <!-- 脈動する中心ドット -->
+                        <circle class="pentagon-pulse" cx="200" cy="200" r="3" />
+
+                        <!-- 頂点ドット -->
+                        <circle class="pentagon-vertex" cx="200" cy="45" />
+                        <circle class="pentagon-vertex" cx="352" cy="155" />
+                        <circle class="pentagon-vertex" cx="294" cy="330" />
+                        <circle class="pentagon-vertex" cx="106" cy="330" />
+                        <circle class="pentagon-vertex" cx="48" cy="155" />
+                    </g>
+                </svg>
+
+                <!-- 中心ラベル -->
+                <div class="pentagon-center">
+                    <span class="label-main">憲法</span>
+                    <span class="label-sub">Constitution</span>
+                </div>
+
+                <!-- 各頂点のラベル -->
+                <div class="vertex-label vertex-label--1">
+                    <span class="vertex-number">I</span>
+                    <span class="vertex-name">時間</span>
+                </div>
+                <div class="vertex-label vertex-label--2">
+                    <span class="vertex-number">II</span>
+                    <span class="vertex-name">本質</span>
+                </div>
+                <div class="vertex-label vertex-label--3">
+                    <span class="vertex-number">III</span>
+                    <span class="vertex-name">昇華</span>
+                </div>
+                <div class="vertex-label vertex-label--4">
+                    <span class="vertex-number">IV</span>
+                    <span class="vertex-name">設計</span>
+                </div>
+                <div class="vertex-label vertex-label--5">
+                    <span class="vertex-number">V</span>
+                    <span class="vertex-name">選択</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <script>
+    (function () {
+        'use strict';
+
+        // ===================================
+        // IntersectionObserver — スクロール連動
+        // ===================================
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+
+        // 同心円リング
+        document.querySelectorAll('.circle-ring').forEach(function (el) {
+            observer.observe(el);
+        });
+
+        // 説明テキスト
+        document.querySelectorAll('.legend-item').forEach(function (el) {
+            observer.observe(el);
+        });
+
+        // 五角形の要素
+        document.querySelectorAll(
+            '.pentagon-outline, .pentagon-star, .pentagon-glow, .pentagon-vertex, .vertex-label'
+        ).forEach(function (el) {
+            observer.observe(el);
+        });
+    })();
+    </script>
+
+</body>
+</html>
