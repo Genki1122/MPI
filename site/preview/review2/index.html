@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review 2 — MPI 知の循環 | MPI</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400;500;600&family=Ovo&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Reset --- */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --color-white: #ffffff;
+            --color-bg: #fcfcfc;
+            --color-text: #1a1a1a;
+            --color-text-secondary: #555555;
+            --color-text-muted: #999999;
+            --color-rule: rgba(0, 0, 0, 0.08);
+            --color-purple: #5C00A4;
+            --color-magenta: #AF0066;
+            --color-purple-light: rgba(92, 0, 164, 0.06);
+            --color-magenta-light: rgba(175, 0, 102, 0.06);
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Noto Serif JP', serif;
+            --font-sub: 'Ovo', serif;
+            --ease-breath: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        html { font-size: 16px; scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 300;
+            line-height: 1.9;
+            letter-spacing: 0.06em;
+            color: var(--color-text);
+            background: var(--color-white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Preview Header --- */
+        .preview-header {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--color-rule);
+            background: var(--color-bg);
+        }
+
+        .preview-header h1 {
+            font-family: var(--font-display);
+            font-weight: 300;
+            font-size: 1.4rem;
+            letter-spacing: 0.15em;
+            color: var(--color-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-header p {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        /* --- Main Container --- */
+        .circulation-section {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 5rem 2rem 6rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s var(--ease-out-quint);
+        }
+
+        .section-title.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title h2 {
+            font-family: var(--font-display);
+            font-weight: 300;
+            font-size: 1.1rem;
+            letter-spacing: 0.2em;
+            color: var(--color-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title .jp {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--color-text-secondary);
+            letter-spacing: 0.12em;
+        }
+
+        /* --- Top Banner --- */
+        .top-banner {
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: all 1s var(--ease-out-quint) 0.2s;
+        }
+
+        .top-banner.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .top-banner .headline {
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: 1.05rem;
+            letter-spacing: 0.15em;
+            color: var(--color-purple);
+            margin-bottom: 0.4rem;
+        }
+
+        .top-banner .sub-headline {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            color: var(--color-text-muted);
+        }
+
+        .banner-line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-purple), transparent);
+            margin: 1.2rem auto 0;
+        }
+
+        /* --- Circulation Diagram --- */
+        .circulation-diagram {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+            aspect-ratio: 1 / 1;
+        }
+
+        /* --- Center Hub --- */
+        .center-hub {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 1.2s var(--ease-breath) 0.5s;
+        }
+
+        .center-hub.is-visible {
+            opacity: 1;
+        }
+
+        .center-hub-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .center-diamond {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 160px;
+            height: 160px;
+            border: 1px solid var(--color-purple);
+            transform: translate(-50%, -50%) rotate(45deg);
+            opacity: 0.3;
+            transition: opacity 0.6s;
+        }
+
+        .center-hub:hover .center-diamond {
+            opacity: 0.6;
+        }
+
+        .center-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 190px;
+            height: 190px;
+            border: 1px solid var(--color-magenta);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.15;
+        }
+
+        .center-label-en {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: 1.8rem;
+            letter-spacing: 0.08em;
+            color: var(--color-purple);
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .center-label-jp {
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            color: var(--color-magenta);
+            margin-bottom: 0.15rem;
+        }
+
+        .center-label-sub {
+            font-family: var(--font-sub);
+            font-weight: 400;
+            font-size: 0.52rem;
+            letter-spacing: 0.08em;
+            color: var(--color-text-muted);
+            line-height: 1.4;
+        }
+
+        /* --- SVG Arrows --- */
+        .circulation-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+
+        .arrow-path {
+            fill: none;
+            stroke: var(--color-purple);
+            stroke-width: 1;
+            opacity: 0.4;
+            stroke-dasharray: 600;
+            stroke-dashoffset: 600;
+            transition: stroke-dashoffset 2s var(--ease-out-quint);
+        }
+
+        .arrow-path.is-drawn {
+            stroke-dashoffset: 0;
+        }
+
+        .arrow-head {
+            fill: var(--color-purple);
+            opacity: 0;
+            transition: opacity 0.8s var(--ease-breath) 1.8s;
+        }
+
+        .arrow-head.is-visible {
+            opacity: 0.5;
+        }
+
+        /* --- Quadrant Nodes --- */
+        .quadrant {
+            position: absolute;
+            width: 200px;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.8s var(--ease-out-quint);
+            cursor: default;
+        }
+
+        .quadrant.is-visible {
+            opacity: 1;
+        }
+
+        /* Positioning */
+        .quadrant--chi {
+            top: 8%;
+            left: 5%;
+            transform: translateY(20px);
+        }
+        .quadrant--chi.is-visible {
+            transform: translateY(0);
+        }
+
+        .quadrant--kyoiku {
+            bottom: 10%;
+            left: 5%;
+            transform: translateY(20px);
+        }
+        .quadrant--kyoiku.is-visible {
+            transform: translateY(0);
+        }
+
+        .quadrant--jigyo {
+            bottom: 10%;
+            right: 5%;
+            transform: translateY(20px);
+        }
+        .quadrant--jigyo.is-visible {
+            transform: translateY(0);
+        }
+
+        .quadrant--kachi {
+            top: 8%;
+            right: 5%;
+            transform: translateY(20px);
+        }
+        .quadrant--kachi.is-visible {
+            transform: translateY(0);
+        }
+
+        .quadrant-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 0.8rem;
+            position: relative;
+        }
+
+        .quadrant-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .quadrant-icon .icon-stroke {
+            fill: none;
+            stroke: var(--color-purple);
+            stroke-width: 1;
+            opacity: 0.5;
+        }
+
+        .quadrant-icon .icon-fill {
+            fill: var(--color-purple);
+            opacity: 0.08;
+        }
+
+        .quadrant:hover .icon-stroke {
+            opacity: 0.8;
+        }
+
+        .quadrant:hover .icon-fill {
+            opacity: 0.15;
+        }
+
+        .quadrant-title {
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 0.12em;
+            color: var(--color-purple);
+            margin-bottom: 0.15rem;
+            transition: color 0.4s;
+        }
+
+        .quadrant:hover .quadrant-title {
+            color: var(--color-magenta);
+        }
+
+        .quadrant-title-en {
+            font-family: var(--font-sub);
+            font-weight: 400;
+            font-size: 0.6rem;
+            letter-spacing: 0.06em;
+            color: var(--color-text-muted);
+            margin-bottom: 0.6rem;
+            font-style: italic;
+        }
+
+        .quadrant-details {
+            list-style: none;
+            padding: 0;
+        }
+
+        .quadrant-details li {
+            font-size: 0.7rem;
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            position: relative;
+            padding-left: 0.8rem;
+        }
+
+        .quadrant-details li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 3px;
+            height: 1px;
+            background: var(--color-purple);
+            opacity: 0.4;
+        }
+
+        /* --- Flow Labels between quadrants --- */
+        .flow-label {
+            position: absolute;
+            font-family: var(--font-sub);
+            font-size: 0.55rem;
+            letter-spacing: 0.06em;
+            color: var(--color-text-muted);
+            opacity: 0;
+            transition: opacity 1s var(--ease-breath) 2.2s;
+            white-space: nowrap;
+        }
+
+        .flow-label.is-visible {
+            opacity: 0.6;
+        }
+
+        .flow-label--top {
+            top: 4%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .flow-label--left {
+            top: 50%;
+            left: 3%;
+            transform: translateY(-50%) rotate(-90deg);
+        }
+
+        .flow-label--bottom {
+            bottom: 3%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .flow-label--right {
+            top: 50%;
+            right: 3%;
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        /* --- Pulse ring on center --- */
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            border: 1px solid var(--color-purple);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: pulseExpand 4s var(--ease-breath) infinite;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .pulse-ring:nth-child(2) {
+            animation-delay: 2s;
+        }
+
+        @keyframes pulseExpand {
+            0% {
+                width: 190px;
+                height: 190px;
+                opacity: 0.2;
+            }
+            100% {
+                width: 340px;
+                height: 340px;
+                opacity: 0;
+            }
+        }
+
+        /* --- Floating particles --- */
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            background: var(--color-purple);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* --- Footer note --- */
+        .review-note {
+            text-align: center;
+            padding: 3rem 2rem 4rem;
+            border-top: 1px solid var(--color-rule);
+        }
+
+        .review-note p {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            letter-spacing: 0.08em;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .circulation-diagram {
+                max-width: 100%;
+                aspect-ratio: auto;
+                height: 600px;
+            }
+
+            .quadrant {
+                width: 160px;
+            }
+
+            .center-hub {
+                width: 160px;
+                height: 160px;
+            }
+
+            .center-diamond {
+                width: 120px;
+                height: 120px;
+            }
+
+            .center-circle {
+                width: 150px;
+                height: 150px;
+            }
+
+            .center-label-en {
+                font-size: 1.4rem;
+            }
+
+            .quadrant--chi { top: 2%; left: 2%; }
+            .quadrant--kyoiku { bottom: 2%; left: 2%; }
+            .quadrant--jigyo { bottom: 2%; right: 2%; }
+            .quadrant--kachi { top: 2%; right: 2%; }
+        }
+
+        /* --- Original image reference --- */
+        .original-ref {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+            text-align: center;
+        }
+
+        .original-ref-title {
+            font-family: var(--font-display);
+            font-weight: 300;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            color: var(--color-text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .original-ref img {
+            max-width: 100%;
+            border: 1px solid var(--color-rule);
+            border-radius: 4px;
+            opacity: 0.6;
+            transition: opacity 0.4s;
+        }
+
+        .original-ref img:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="preview-header">
+        <h1>Review 2 — Circulation Diagram</h1>
+        <p>MPI 知の循環 / Web Expression</p>
+    </header>
+
+    <!-- Circulation Section -->
+    <section class="circulation-section">
+
+        <!-- Section Title -->
+        <div class="section-title" data-anim>
+            <h2>Intellectual Circulation</h2>
+            <p class="jp">空・文化・価値をビジネス文化するプロデュース</p>
+        </div>
+
+        <!-- Top Banner -->
+        <div class="top-banner" data-anim>
+            <p class="headline">日本の知・文化・経験</p>
+            <p class="sub-headline">知を循環させ、持続的な価値を創出する</p>
+            <div class="banner-line"></div>
+        </div>
+
+        <!-- Main Diagram -->
+        <div class="circulation-diagram" data-anim>
+
+            <!-- Pulse rings -->
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+
+            <!-- SVG Arrow Paths -->
+            <svg class="circulation-svg" viewBox="0 0 720 720" preserveAspectRatio="xMidYMid meet">
+                <!-- Clockwise curved arrows: 知→教育→事業→価値→知 -->
+                <!-- Top-left to Bottom-left (知→教育) -->
+                <path class="arrow-path" d="M 180 220 C 120 300, 100 420, 170 510" data-arrow />
+                <polygon class="arrow-head" points="170,510 162,498 178,500" data-arrowhead />
+
+                <!-- Bottom-left to Bottom-right (教育→事業) -->
+                <path class="arrow-path" d="M 230 560 C 320 620, 430 620, 500 560" data-arrow />
+                <polygon class="arrow-head" points="500,560 490,568 492,552" data-arrowhead />
+
+                <!-- Bottom-right to Top-right (事業→価値) -->
+                <path class="arrow-path" d="M 550 510 C 620 420, 610 300, 550 220" data-arrow />
+                <polygon class="arrow-head" points="550,220 558,232 542,230" data-arrowhead />
+
+                <!-- Top-right to Top-left (価値→知) -->
+                <path class="arrow-path" d="M 500 170 C 420 110, 310 110, 230 170" data-arrow />
+                <polygon class="arrow-head" points="230,170 240,162 238,178" data-arrowhead />
+
+                <!-- Diagonal cross lines (subtle) -->
+                <line x1="260" y1="260" x2="460" y2="460" stroke="var(--color-purple)" stroke-width="0.5" opacity="0.08" />
+                <line x1="460" y1="260" x2="260" y2="460" stroke="var(--color-purple)" stroke-width="0.5" opacity="0.08" />
+            </svg>
+
+            <!-- Flow direction labels -->
+            <span class="flow-label flow-label--top" data-flow>昇華</span>
+            <span class="flow-label flow-label--left" data-flow>深化</span>
+            <span class="flow-label flow-label--bottom" data-flow>展開</span>
+            <span class="flow-label flow-label--right" data-flow>創出</span>
+
+            <!-- Center Hub -->
+            <div class="center-hub" data-anim>
+                <div class="center-hub-inner">
+                    <div class="center-diamond"></div>
+                    <div class="center-circle"></div>
+                    <span class="center-label-en">MPI</span>
+                    <span class="center-label-jp">知のプロデュース</span>
+                    <span class="center-label-sub">Managing Professional Intellect</span>
+                </div>
+            </div>
+
+            <!-- Quadrant: 知 (Top-Left) -->
+            <div class="quadrant quadrant--chi" data-anim data-delay="0.3">
+                <div class="quadrant-icon">
+                    <svg viewBox="0 0 56 56">
+                        <circle class="icon-fill" cx="28" cy="28" r="24" />
+                        <circle class="icon-stroke" cx="28" cy="28" r="24" />
+                        <!-- Book / knowledge symbol -->
+                        <path class="icon-stroke" d="M 18 18 L 28 22 L 38 18 L 38 38 L 28 42 L 18 38 Z" />
+                        <line class="icon-stroke" x1="28" y1="22" x2="28" y2="42" />
+                    </svg>
+                </div>
+                <div class="quadrant-title">知</div>
+                <div class="quadrant-title-en">Research</div>
+                <ul class="quadrant-details">
+                    <li>研究</li>
+                    <li>文化</li>
+                    <li>専門性</li>
+                </ul>
+            </div>
+
+            <!-- Quadrant: 教育 (Bottom-Left) -->
+            <div class="quadrant quadrant--kyoiku" data-anim data-delay="0.6">
+                <div class="quadrant-icon">
+                    <svg viewBox="0 0 56 56">
+                        <circle class="icon-fill" cx="28" cy="28" r="24" />
+                        <circle class="icon-stroke" cx="28" cy="28" r="24" />
+                        <!-- Education / growth symbol -->
+                        <path class="icon-stroke" d="M 20 38 L 28 16 L 36 38" />
+                        <line class="icon-stroke" x1="23" y1="30" x2="33" y2="30" />
+                        <circle class="icon-stroke" cx="28" cy="14" r="3" />
+                    </svg>
+                </div>
+                <div class="quadrant-title">教育</div>
+                <div class="quadrant-title-en">Education</div>
+                <ul class="quadrant-details">
+                    <li>次世代</li>
+                    <li>知る＆磨き</li>
+                </ul>
+            </div>
+
+            <!-- Quadrant: 事業・育成 (Bottom-Right) -->
+            <div class="quadrant quadrant--jigyo" data-anim data-delay="0.9">
+                <div class="quadrant-icon">
+                    <svg viewBox="0 0 56 56">
+                        <circle class="icon-fill" cx="28" cy="28" r="24" />
+                        <circle class="icon-stroke" cx="28" cy="28" r="24" />
+                        <!-- Business / building symbol -->
+                        <rect class="icon-stroke" x="20" y="20" width="16" height="20" rx="1" />
+                        <line class="icon-stroke" x1="24" y1="26" x2="28" y2="26" />
+                        <line class="icon-stroke" x1="24" y1="30" x2="28" y2="30" />
+                        <line class="icon-stroke" x1="24" y1="34" x2="28" y2="34" />
+                        <rect class="icon-stroke" x="32" y="26" width="6" height="14" rx="1" />
+                    </svg>
+                </div>
+                <div class="quadrant-title">事業・育成</div>
+                <div class="quadrant-title-en">Business &amp; Nurturing</div>
+                <ul class="quadrant-details">
+                    <li>文化・ブランド</li>
+                    <li>教育＆資質化</li>
+                </ul>
+            </div>
+
+            <!-- Quadrant: 価値 (Top-Right) -->
+            <div class="quadrant quadrant--kachi" data-anim data-delay="1.2">
+                <div class="quadrant-icon">
+                    <svg viewBox="0 0 56 56">
+                        <circle class="icon-fill" cx="28" cy="28" r="24" />
+                        <circle class="icon-stroke" cx="28" cy="28" r="24" />
+                        <!-- Value / gem symbol -->
+                        <polygon class="icon-stroke" points="28,14 38,24 34,42 22,42 18,24" />
+                        <line class="icon-stroke" x1="18" y1="24" x2="38" y2="24" />
+                        <line class="icon-stroke" x1="28" y1="14" x2="24" y2="24" />
+                        <line class="icon-stroke" x1="28" y1="14" x2="32" y2="24" />
+                        <line class="icon-stroke" x1="24" y1="24" x2="22" y2="42" />
+                        <line class="icon-stroke" x1="32" y1="24" x2="34" y2="42" />
+                    </svg>
+                </div>
+                <div class="quadrant-title">価値</div>
+                <div class="quadrant-title-en">Value</div>
+                <ul class="quadrant-details">
+                    <li>ブランド化</li>
+                    <li>グローバル展開</li>
+                    <li>戦略設計</li>
+                </ul>
+            </div>
+
+        </div><!-- /circulation-diagram -->
+
+    </section>
+
+    <!-- Original reference -->
+    <section class="original-ref">
+        <p class="original-ref-title">— Original Reference —</p>
+        <img src="../../images/MPI知の循環.png" alt="MPI知の循環 原本">
+    </section>
+
+    <!-- Review note -->
+    <footer class="review-note">
+        <p>Review 2 — MPI 知の循環 Web Expression Draft</p>
+    </footer>
+
+    <script>
+        /* --- Intersection Observer for scroll animation --- */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.dataset.delay || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('is-visible');
+                    }, delay * 1000);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('[data-anim]').forEach(el => observer.observe(el));
+
+        /* --- Arrow line-drawing animation --- */
+        const diagramObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Draw arrows
+                    document.querySelectorAll('[data-arrow]').forEach((path, i) => {
+                        setTimeout(() => {
+                            path.classList.add('is-drawn');
+                        }, i * 400 + 800);
+                    });
+
+                    // Show arrowheads
+                    document.querySelectorAll('[data-arrowhead]').forEach((head, i) => {
+                        setTimeout(() => {
+                            head.classList.add('is-visible');
+                        }, i * 400 + 1600);
+                    });
+
+                    // Show flow labels
+                    document.querySelectorAll('[data-flow]').forEach(label => {
+                        label.classList.add('is-visible');
+                    });
+
+                    diagramObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        diagramObserver.observe(document.querySelector('.circulation-diagram'));
+
+        /* --- Floating particles around center --- */
+        function createParticle() {
+            const diagram = document.querySelector('.circulation-diagram');
+            if (!diagram) return;
+
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+
+            const centerX = diagram.offsetWidth / 2;
+            const centerY = diagram.offsetHeight / 2;
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 120 + Math.random() * 160;
+            const startX = centerX + Math.cos(angle) * radius;
+            const startY = centerY + Math.sin(angle) * radius;
+
+            particle.style.left = startX + 'px';
+            particle.style.top = startY + 'px';
+
+            const isMagenta = Math.random() > 0.5;
+            particle.style.background = isMagenta ? 'var(--color-magenta)' : 'var(--color-purple)';
+
+            diagram.appendChild(particle);
+
+            const duration = 3000 + Math.random() * 3000;
+            const moveAngle = angle + (Math.random() - 0.5) * 0.8;
+            const moveRadius = 30 + Math.random() * 60;
+
+            particle.animate([
+                {
+                    opacity: 0,
+                    transform: 'translate(0, 0) scale(0.5)'
+                },
+                {
+                    opacity: 0.3,
+                    transform: `translate(${Math.cos(moveAngle) * moveRadius * 0.3}px, ${Math.sin(moveAngle) * moveRadius * 0.3}px) scale(1)`,
+                    offset: 0.3
+                },
+                {
+                    opacity: 0,
+                    transform: `translate(${Math.cos(moveAngle) * moveRadius}px, ${Math.sin(moveAngle) * moveRadius}px) scale(0.3)`
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            }).onfinish = () => particle.remove();
+        }
+
+        // Generate particles periodically
+        setInterval(createParticle, 600);
+
+        /* --- Copy protection --- */
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && ['s','u','p'].includes(e.key.toLowerCase())) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
